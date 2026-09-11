@@ -1,0 +1,2 @@
+# Coloca acá las imágenes de los proyectos.
+# El nombre debe coincidir con `cover.src` en content/projects/<slug>.ts
