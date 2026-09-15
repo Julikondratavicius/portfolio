@@ -16,7 +16,7 @@ npm run build
 
 ## 1. Subir el código a GitHub
 
-El repo ya está creado y conectado: `github.com/jjjulik/portfolio`.
+El repo ya está creado y conectado: `github.com/Julikondratavicius/portfolio`.
 
 ```bash
 git add -A
@@ -34,7 +34,7 @@ Si `git push` te pide credenciales, usá un Personal Access Token de GitHub
 1. Entrá a <https://vercel.com> e iniciá sesión **con tu cuenta de GitHub**
    (así Vercel ve tus repos sin configurar nada).
 2. **Add New… → Project**.
-3. Buscá `jjjulik/portfolio` y hacé click en **Import**.
+3. Buscá `Julikondratavicius/portfolio` y hacé click en **Import**.
 4. No cambies nada en la pantalla de configuración. Vercel detecta Next.js solo:
    - Framework Preset: `Next.js`
    - Build Command: `next build`
