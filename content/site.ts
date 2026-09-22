@@ -2,7 +2,7 @@ import type { Localized } from "@/lib/i18n";
 
 export const site = {
   name: "Julián Kondratavicius",
-  role: "Senior Product Designer & Product Builder",
+  role: "Senior Product Designer & Design Lead",
   email: "jjkondratavicius@gmail.com",
   linkedin: "https://www.linkedin.com/in/juli%C3%A1n-kondratavicius-8163b1189/",
   url: "https://juliankondratavicius.com",
