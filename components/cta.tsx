@@ -1,42 +1,10 @@
 import type { Locale } from "@/lib/i18n";
-import { site, ui } from "@/content/site";
-import { Reveal } from "@/components/reveal";
-import { RichText } from "@/components/rich-text";
+import { site } from "@/content/site";
 
 export function Cta({ lang }: { lang: Locale }) {
-  return (
-    <section
-      id="contact"
-      className="py-[clamp(80px,14vh,180px)] text-center"
-    >
-      <div className="wrap">
-        <Reveal>
-          <div className="t-label mb-7">{ui.ctaLabel[lang]}</div>
-        </Reveal>
-
-        <Reveal>
-          <h2 className="t-display t-display-strong mx-auto mb-10 max-w-[16ch]">
-            <RichText text={ui.ctaTitle[lang]} />
-          </h2>
-        </Reveal>
-
-        <Reveal className="flex flex-wrap items-center justify-center gap-5">
-          <a href={`mailto:${site.email}`} className="btn btn-fill group">
-            {ui.ctaMail[lang]}
-            <span className="arrow" aria-hidden="true">
-              →
-            </span>
-          </a>
-          <a
-            href={site.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-outline"
-          >
-            LinkedIn ↗
-          </a>
-        </Reveal>
-      </div>
-    </section>
-  );
+  return <section id="contact" className="section wrap" style={{ textAlign: "center" }}>
+    <p className="eyebrow" style={{ justifyContent: "center" }}>{lang === "es" ? "Contacto" : "Contact"}</p>
+    <h2 style={{ maxWidth: "13ch", margin: "0 auto 28px", fontSize: "clamp(2.8rem,7vw,6rem)", fontWeight: 350, lineHeight: 1, letterSpacing: "-.07em" }}>{lang === "es" ? "Hablemos de lo que sigue." : "Let’s talk about what comes next."}</h2>
+    <a className="button-primary" href={`mailto:${site.email}`}>{site.email}<span aria-hidden="true">↗</span></a>
+  </section>;
 }

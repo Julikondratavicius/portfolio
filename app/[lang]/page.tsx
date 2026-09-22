@@ -3,250 +3,134 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { href } from "@/lib/href";
 import { getFeaturedProjects } from "@/lib/projects";
-import {
-  education,
-  experience,
-  principles,
-  skills,
-  testimonials,
-  ui,
-} from "@/content/site";
-import { Hero } from "@/components/hero";
+import { site, ui } from "@/content/site";
 import { Cta } from "@/components/cta";
-import { Reveal } from "@/components/reveal";
 import { ProjectCard } from "@/components/project-card";
 import { SectionHead } from "@/components/ui/section-head";
+import { ProductMap } from "@/components/product-map";
 
 const copy = {
   es: {
-    workTitle: "Proyectos **destacados**",
-    principlesTitle: "Cómo **trabajo**",
-    principlesIntro:
-      "Tres criterios que aplico en cualquier producto, sin importar la industria.",
-    expTitle: "Experiencia **profesional**",
-    skillsTitle: "Skills & **herramientas**",
-    testTitle: "Lo que **dicen**",
-    eduTitle: "Formación & **certificaciones**",
+    eyebrow: "Senior Product Designer · Product Builder",
+    title: ["Convierto problemas", "complejos en productos", "claros y reales."],
+    description: "Trabajo entre estrategia, experiencia, sistemas y tecnología. Hoy diseño productos de salud digital en DOC24 y construyo Blox, una plataforma para el cuidado y el rendimiento del atleta.",
+    location: "Rosario, Argentina",
+    availability: "Abierto a oportunidades en LATAM",
+    work: "Ver trabajo",
+    builder: "Producto en construcción",
+    bloxTitle: "Blox",
+    bloxBody: "Un proyecto propio para explorar el rendimiento y el cuidado del atleta desde el producto. Investigación, decisiones y construcción en curso.",
+    bloxStatus: "En desarrollo",
+    bloxLink: "Ver en Lab",
+    approach: "Una práctica entre",
+    approachTitle: "personas, negocio y tecnología.",
+    approachBody: "Mi formación en Diseño Industrial me enseñó a pensar en sistemas, restricciones y relaciones entre partes. En producto digital, ese enfoque ayuda a tomar decisiones que funcionan más allá de una pantalla.",
+    principles: [
+      ["01", "Entender antes de producir", "Aclarar el problema y su contexto antes de convertirlo en entregables."],
+      ["02", "Reducir complejidad", "Resolver con menos fricción antes de sumar nuevas capas de interfaz."],
+      ["03", "Hacer explícitos los trade-offs", "Alinear producto, negocio y tecnología alrededor de una decisión compartida."],
+    ],
+    experience: "Experiencia seleccionada",
+    roles: [
+      ["DOC24 · Wehealthy", "Senior Product Designer", "Salud digital · Actual"],
+      ["Let'sBit", "Product / UX Designer", "Fintech"],
+      ["Ualabee", "Product / UX Designer", "Movilidad"],
+      ["Blox", "Fundador · Product Builder", "Performance & cuidado del atleta"],
+    ],
   },
   en: {
-    workTitle: "Selected **work**",
-    principlesTitle: "How I **work**",
-    principlesIntro:
-      "Three criteria I apply to any product, whatever the industry.",
-    expTitle: "Professional **experience**",
-    skillsTitle: "Skills & **tools**",
-    testTitle: "What they **say**",
-    eduTitle: "Education & **certifications**",
+    eyebrow: "Senior Product Designer · Product Builder",
+    title: ["I turn complex", "problems into clear", "products that ship."],
+    description: "I work across strategy, experience, systems and technology. Today I design digital health products at DOC24 and build Blox, a platform for athlete care and performance.",
+    location: "Rosario, Argentina",
+    availability: "Open to opportunities across LATAM",
+    work: "Explore selected work",
+    builder: "Product in progress",
+    bloxTitle: "Blox",
+    bloxBody: "An independent project exploring athlete performance and care through product. Research, decisions and building are ongoing.",
+    bloxStatus: "In development",
+    bloxLink: "Explore the Lab",
+    approach: "A practice across",
+    approachTitle: "people, business and technology.",
+    approachBody: "My Industrial Design background taught me to think in systems, constraints and relationships between parts. In digital products, that approach helps make decisions that work beyond a single screen.",
+    principles: [
+      ["01", "Understand before producing", "Clarify the problem and its context before turning it into deliverables."],
+      ["02", "Reduce complexity", "Solve for less friction before adding new layers of interface."],
+      ["03", "Make trade-offs explicit", "Align product, business and technology around a shared decision."],
+    ],
+    experience: "Selected experience",
+    roles: [
+      ["DOC24 · Wehealthy", "Senior Product Designer", "Digital health · Current"],
+      ["Let'sBit", "Product / UX Designer", "Fintech"],
+      ["Ualabee", "Product / UX Designer", "Mobility"],
+      ["Blox", "Founder · Product Builder", "Athlete performance & care"],
+    ],
   },
 } as const;
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const c = copy[locale];
   const featured = getFeaturedProjects(3);
 
-  return (
-    <>
-      <Hero lang={locale} />
-
-      <hr className="wrap hairline border-0" />
-
-      {/* ── Proyectos ───────────────────────────────────────── */}
-      <section id="work" className="section-y">
-        <div className="wrap">
-          <SectionHead
-            n="01"
-            title={c.workTitle}
-            aside={
-              <Link
-                href={href("/work", locale)}
-                className="group inline-flex items-center gap-1.5 text-[0.85rem] text-ink-2 no-underline transition-colors hover:text-ink"
-              >
-                {ui.allWork[locale]}
-                <span className="arrow" aria-hidden="true">
-                  →
-                </span>
-              </Link>
-            }
-          />
-
-          <div className="grid gap-4 md:grid-cols-2">
-            {featured.map((project, i) => (
-              <div key={project.slug} className={i === 0 ? "md:col-span-2" : ""}>
-                <ProjectCard
-                  project={project}
-                  lang={locale}
-                  wide={i === 0}
-                  priority={i === 0}
-                />
-              </div>
-            ))}
-          </div>
+  return <>
+    <section id="top" className="hero wrap">
+      <div className="hero-copy">
+        <p className="eyebrow"><span className="status-dot" />{c.eyebrow}</p>
+        <h1>{c.title.map((line) => <span key={line}>{line}</span>)}</h1>
+        <p className="hero-description">{c.description}</p>
+        <div className="hero-actions">
+          <a className="button-primary" href="#work">{c.work}<span aria-hidden="true">↓</span></a>
+          <a className="text-link" href={site.linkedin} target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
         </div>
-      </section>
+        <div className="hero-meta"><span>{c.location}</span><span>{c.availability}</span></div>
+      </div>
+      <ProductMap lang={locale} />
+    </section>
 
-      <hr className="wrap hairline border-0" />
+    <section id="work" className="section wrap">
+      <SectionHead n="01" title={ui.selectedWork[locale]} aside={<Link className="text-link" href={href("/work", locale)}>{ui.allWork[locale]} <span aria-hidden="true">↗</span></Link>} />
+      <div className="project-grid">
+        {featured.map((project, i) => <ProjectCard key={project.slug} project={project} lang={locale} wide={i === 0} priority={i === 0} />)}
+      </div>
+    </section>
 
-      {/* ── Cómo trabajo ────────────────────────────────────── */}
-      <section id="principles" className="section-y">
-        <div className="wrap">
-          <SectionHead
-            n="02"
-            title={c.principlesTitle}
-            intro={c.principlesIntro}
-          />
-
-          <Reveal mode="stagger" className="grid gap-4 md:grid-cols-3">
-            {principles.map((p) => (
-              <div key={p.n} className="card p-8">
-                <div className="t-label t-mono mb-5">{p.n}</div>
-                <h3 className="mb-3 text-[1.05rem] font-medium leading-snug text-ink">
-                  {p.title[locale]}
-                </h3>
-                <p className="text-[0.9rem] font-light leading-relaxed text-ink-2">
-                  {p.body[locale]}
-                </p>
-              </div>
-            ))}
-          </Reveal>
+    <section className="builder-section">
+      <div className="wrap builder-layout">
+        <div className="builder-visual" aria-label="Esquema modular de Blox" role="img">
+          <div className="builder-coordinate">B / 01—04</div>
+          <div className="blox-mark">b<span>.</span></div>
+          <div className="builder-gridline" />
+          <div className="builder-caption">PRODUCT / ATHLETE / SYSTEM</div>
         </div>
-      </section>
-
-      <hr className="wrap hairline border-0" />
-
-      {/* ── Experiencia ─────────────────────────────────────── */}
-      <section id="experience" className="section-y">
-        <div className="wrap">
-          <SectionHead n="03" title={c.expTitle} />
-
-          <div className="flex flex-col">
-            {experience.map((job) => (
-              <Reveal
-                key={job.company[locale] + job.period}
-                className="hairline grid gap-4 py-10 lg:grid-cols-[1fr_2fr] lg:gap-10"
-              >
-                <div className="flex flex-col gap-1">
-                  <span className="text-base font-medium text-ink">
-                    {job.company[locale]}
-                  </span>
-                  <span className="text-[0.78rem] text-ink-3">
-                    {job.type[locale]}
-                  </span>
-                  <span className="t-mono mt-1 text-[0.78rem] text-ink-3">
-                    {job.period}
-                  </span>
-                </div>
-
-                <div>
-                  <h3 className="mb-4 text-[0.95rem] font-medium text-ink">
-                    {job.title[locale]}
-                  </h3>
-                  <ul className="flex list-none flex-col gap-2.5">
-                    {job.points[locale].map((point, i) => (
-                      <li
-                        key={i}
-                        className="relative pl-4 text-[0.88rem] font-light leading-relaxed text-ink-2 before:absolute before:left-0 before:text-ink-3 before:content-['–']"
-                      >
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
-            ))}
-            <div className="hairline" />
-          </div>
+        <div className="builder-copy">
+          <p className="eyebrow">{c.builder}</p>
+          <h2>{c.bloxTitle}</h2>
+          <p>{c.bloxBody}</p>
+          <Link className="text-link" href={href("/lab", locale)}>{c.bloxLink} <span aria-hidden="true">↗</span></Link>
+          <div className="project-status"><span className="status-dot" />{c.bloxStatus}</div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <hr className="wrap hairline border-0" />
+    <section className="section wrap approach-section">
+      <div className="approach-intro">
+        <p className="eyebrow">02 / {c.approach}</p>
+        <h2>{c.approachTitle}</h2>
+        <p>{c.approachBody}</p>
+      </div>
+      <ProductMap lang={locale} compact />
+      <div className="principle-list">
+        {c.principles.map(([n, title, body]) => <article key={n} className="principle-row"><span className="mono">{n}</span><h3>{title}</h3><p>{body}</p></article>)}
+      </div>
+    </section>
 
-      {/* ── Skills ──────────────────────────────────────────── */}
-      <section id="skills" className="section-y">
-        <div className="wrap">
-          <SectionHead n="04" title={c.skillsTitle} />
-
-          <Reveal mode="stagger" className="grid gap-12 md:grid-cols-3">
-            {skills.map((col) => (
-              <div key={col.title.en}>
-                <div className="t-label mb-5 border-b border-line pb-3">
-                  {col.title[locale]}
-                </div>
-                <div className="flex flex-col gap-2">
-                  {col.items.map((item) => (
-                    <span
-                      key={item}
-                      className="text-[0.9rem] font-light text-ink-2 transition-colors duration-[250ms] hover:text-ink"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      <hr className="wrap hairline border-0" />
-
-      {/* ── Testimonios ─────────────────────────────────────── */}
-      <section id="testimonials" className="section-y">
-        <div className="wrap">
-          <SectionHead n="05" title={c.testTitle} />
-
-          <Reveal mode="stagger" className="grid gap-4 md:grid-cols-2">
-            {testimonials.map((t) => (
-              <figure key={t.author} className="card p-[clamp(28px,3vw,44px)]">
-                <blockquote className="mb-6 text-[0.95rem] font-light italic leading-relaxed text-ink-2">
-                  “{t.quote[locale]}”
-                </blockquote>
-                <figcaption>
-                  <div className="text-[0.85rem] font-medium text-ink">
-                    {t.author}
-                  </div>
-                  <div className="text-[0.78rem] font-light text-ink-3">
-                    {t.role[locale]}
-                  </div>
-                </figcaption>
-              </figure>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      <hr className="wrap hairline border-0" />
-
-      {/* ── Formación ───────────────────────────────────────── */}
-      <section id="education" className="section-y">
-        <div className="wrap">
-          <SectionHead n="06" title={c.eduTitle} />
-
-          <Reveal mode="stagger" className="grid gap-4 md:grid-cols-3">
-            {education.map((item) => (
-              <div key={item.title.en} className="card p-7">
-                <div className="t-label mb-3">{item.label[locale]}</div>
-                <div className="mb-1 text-base font-medium text-ink">
-                  {item.title[locale]}
-                </div>
-                {item.sub ? (
-                  <div className="text-[0.82rem] font-light text-ink-2">
-                    {item.sub[locale]}
-                  </div>
-                ) : null}
-              </div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      <Cta lang={locale} />
-    </>
-  );
+    <section className="section wrap experience-section" id="experience">
+      <SectionHead n="03" title={c.experience} />
+      <div className="experience-list">{c.roles.map(([company, role, field]) => <div className="experience-row" key={company}><span className="experience-company">{company}</span><span>{role}</span><span className="experience-field">{field}</span></div>)}</div>
+    </section>
+    <Cta lang={locale} />
+  </>;
 }

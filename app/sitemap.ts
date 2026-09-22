@@ -5,7 +5,7 @@ import { site } from "@/content/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticPaths = ["", "/work", "/about"];
+  const staticPaths = ["", "/work", "/profile", "/lab"];
 
   const entries: MetadataRoute.Sitemap = [];
 

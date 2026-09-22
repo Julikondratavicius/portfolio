@@ -13,31 +13,31 @@ export function generateStaticParams() {
 
 const copy = {
   es: {
-    label: "Sobre mí",
-    heading: "Diseño desde el **problema**, no desde la pantalla",
+    label: "Perfil",
+    heading: "Diseñador de formación. **Product builder** por evolución.",
     body: [
-      "Soy Julián, Product Designer. Vengo del Diseño Industrial, y esa formación me dejó una manera de trabajar que todavía uso: entender la restricción antes que la forma. Un producto físico te obliga a decidir con materiales, costos y procesos sobre la mesa. En digital pasa lo mismo, sólo que las restricciones son menos visibles.",
-      "Hace más de cinco años que diseño productos digitales en entornos de startup: healthtech, fintech, movilidad. Trabajé sobre todo en equipos chicos, donde el diseñador no recibe un brief cerrado sino que participa en definir qué se construye y por qué.",
-      "Mi foco está en la escala. No en hacer una pantalla linda, sino en dejar un sistema —de componentes, de criterios, de decisiones documentadas— que le permita al equipo seguir avanzando rápido cuando yo no esté en la sala.",
-      "Hoy incorporo herramientas de IA al flujo de diseño para acelerar validación e insights: sintetizar research, explorar variantes y prototipar funcional en menos tiempo. La herramienta cambió; el criterio para decidir sigue siendo el trabajo.",
+      "Soy Julián, Product Designer en Rosario, Argentina. Me formé en Diseño Industrial y de Productos: una disciplina que conecta función, materiales, restricciones y sistemas. Esa manera de pensar sigue presente en cómo abordo productos digitales.",
+      "Hace más de cinco años trabajo en productos digitales, startups y SaaS. Hoy soy Senior Product Designer en DOC24, dentro del equipo de Producto de Wehealthy, una solución de salud y bienestar corporativo.",
+      "En mi trabajo colaboro con Product Owners, cofounders, analistas funcionales, ingeniería y negocio. Participo en definición y priorización, estrategia de UX, flujos end-to-end, documentación, sistemas de diseño y acompañamiento a desarrollo.",
+      "También fundé Blox, una plataforma orientada al rendimiento y cuidado del atleta. Es el espacio donde llevo el trabajo más allá del diseño: investigar, definir el producto, experimentar y construir con tecnología y usuarios.",
     ],
-    lookingLabel: "Qué estoy buscando",
+    lookingLabel: "Hacia dónde voy",
     looking:
-      "Roles de Product Lead o Senior Product Designer en equipos donde el diseño participe de la definición del producto y no sólo de su ejecución. Me interesan especialmente los productos con complejidad real: muchos tipos de usuario, restricciones regulatorias o decisiones con consecuencias.",
+      "Seguir ampliando mi ownership de producto: desde el diseño senior hacia roles de Product Manager y Product Lead, en equipos donde estrategia, experiencia y tecnología se definan en conjunto.",
     principlesLabel: "Criterios",
   },
   en: {
-    label: "About",
-    heading: "I design from the **problem**, not from the screen",
+    label: "Profile",
+    heading: "Designer by training. **Product builder** by evolution.",
     body: [
-      "I'm Julián, a Product Designer. I come from Industrial Design, and that training left me with a way of working I still use: understand the constraint before the form. A physical product forces you to decide with materials, costs and processes on the table. Digital is the same, the constraints are just less visible.",
-      "For more than five years I've been designing digital products in startup environments: healthtech, fintech, mobility. Mostly in small teams, where the designer doesn't receive a closed brief but takes part in defining what gets built and why.",
-      "My focus is scale. Not making one screen look good, but leaving behind a system — of components, criteria and documented decisions — that lets the team keep moving fast when I'm no longer in the room.",
-      "Today I bring AI tooling into the design workflow to speed up validation and insights: synthesizing research, exploring variants and prototyping functionally in less time. The tool changed; the judgement behind the decision is still the job.",
+      "I'm Julián, a Product Designer based in Rosario, Argentina. I trained in Industrial and Product Design: a discipline connecting function, materials, constraints and systems. That way of thinking still shapes how I approach digital products.",
+      "For more than five years I've worked across digital products, startups and SaaS. Today I'm a Senior Product Designer at DOC24, on the Product team for Wehealthy, a corporate health and wellbeing solution.",
+      "I work with Product Owners, co-founders, functional analysts, engineering and business stakeholders. My work spans feature definition and prioritization, UX strategy, end-to-end flows, documentation, design systems and delivery support.",
+      "I also founded Blox, a platform for athlete performance and care. It's where I take the work beyond design: researching, shaping the product, experimenting and building with technology and users.",
     ],
-    lookingLabel: "What I'm looking for",
+    lookingLabel: "Where I'm heading",
     looking:
-      "Product Lead or Senior Product Designer roles on teams where design takes part in defining the product, not just executing it. I'm especially drawn to products with real complexity: many user types, regulatory constraints, or decisions with consequences.",
+      "Continue growing my product ownership: from senior design toward Product Manager and Product Lead roles, on teams where strategy, experience and technology are shaped together.",
     principlesLabel: "Criteria",
   },
 } as const;
@@ -53,7 +53,7 @@ export async function generateMetadata({
     title: copy[locale].label,
     description: copy[locale].body[0],
     alternates: {
-      canonical: `${site.url}/${locale}/about`,
+      canonical: `${site.url}/${locale}/profile`,
       languages: {
         "es-AR": `${site.url}/es/about`,
         "en-US": `${site.url}/en/about`,

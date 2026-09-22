@@ -2,11 +2,11 @@ import type { Localized } from "@/lib/i18n";
 
 export const site = {
   name: "Julián Kondratavicius",
-  role: "Senior Product Designer",
+  role: "Senior Product Designer & Product Builder",
   email: "jjkondratavicius@gmail.com",
   linkedin: "https://www.linkedin.com/in/juli%C3%A1n-kondratavicius-8163b1189/",
   url: "https://juliankondratavicius.com",
-  location: { es: "Córdoba, Argentina", en: "Córdoba, Argentina" },
+  location: { es: "Rosario, Argentina", en: "Rosario, Argentina" },
   /** Poné acá el archivo cuando lo subas a /public/cv/. */
   cv: {
     es: "/cv/julian-kondratavicius-cv-es.pdf",
@@ -15,10 +15,9 @@ export const site = {
 } as const;
 
 export const nav: { href: string; label: Localized<string> }[] = [
-  { href: "/work", label: { es: "Proyectos", en: "Work" } },
-  { href: "/#experience", label: { es: "Experiencia", en: "Experience" } },
-  { href: "/about", label: { es: "Sobre mí", en: "About" } },
-  { href: "/#contact", label: { es: "Contacto", en: "Contact" } },
+  { href: "/work", label: { es: "Trabajo", en: "Work" } },
+  { href: "/profile", label: { es: "Perfil", en: "Profile" } },
+  { href: "/lab", label: { es: "Lab", en: "Lab" } },
 ];
 
 export const hero = {
@@ -96,7 +95,7 @@ export const experience: Job[] = [
       es: "Sr. Product Designer — UX/UI Designer",
       en: "Sr. Product Designer — UX/UI Designer",
     },
-    period: "2023 — 2025",
+    period: "2023 — Actualidad",
     points: {
       es: [
         "Lideré la creación y evolución del Design System completo, estableciendo estándares de consistencia, eficiencia y velocidad de entrega.",
@@ -258,7 +257,7 @@ export const education: {
 /** Microcopy reutilizable de la interfaz. */
 export const ui = {
   work: { es: "Proyectos", en: "Work" },
-  selectedWork: { es: "Proyectos destacados", en: "Selected work" },
+  selectedWork: { es: "Trabajo seleccionado", en: "Selected work" },
   allWork: { es: "Ver todos los proyectos", en: "View all projects" },
   readCase: { es: "Ver el caso", en: "Read the case study" },
   backToWork: { es: "Volver a proyectos", en: "Back to work" },

@@ -5,6 +5,7 @@ import { locales, isLocale, htmlLang, type Locale } from "@/lib/i18n";
 import { site } from "@/content/site";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { Analytics } from "@/components/analytics";
 import "../globals.css";
 
 const outfit = Outfit({
@@ -22,12 +23,12 @@ const meta: Record<Locale, { title: string; description: string }> = {
   es: {
     title: `${site.name} — ${site.role}`,
     description:
-      "Senior Product Designer con +5 años de experiencia en productos digitales, Design Systems y estrategia de producto. Disponible para roles de Product Lead.",
+      "Senior Product Designer y Product Builder en Rosario, Argentina. Diseño productos digitales en DOC24 y construyo Blox.",
   },
   en: {
     title: `${site.name} — ${site.role}`,
     description:
-      "Senior Product Designer with 5+ years of experience in digital products, Design Systems and product strategy. Available for Product Lead roles.",
+      "Senior Product Designer and Product Builder in Rosario, Argentina. Designing digital health products at DOC24 and building Blox.",
   },
 };
 
@@ -49,6 +50,7 @@ export async function generateMetadata({
     description,
     authors: [{ name: site.name, url: site.url }],
     creator: site.name,
+    icons: { icon: "/favicon.svg" },
     keywords: [
       "Product Designer",
       "Senior Product Designer",
@@ -114,6 +116,9 @@ export default async function RootLayout({
       "Product Strategy",
       "Figma",
       "AI-driven Design",
+      "SaaS",
+      "HealthTech",
+      "Product Building",
     ],
     hasOccupation: {
       "@type": "Occupation",
@@ -136,6 +141,7 @@ export default async function RootLayout({
         <Nav lang={locale} />
         <main id="main">{children}</main>
         <Footer lang={locale} />
+        <Analytics />
 
         <script
           type="application/ld+json"

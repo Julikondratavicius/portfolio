@@ -19,12 +19,12 @@ export const doc24: Project = {
   name: "Wehealthy",
   client: "doc24",
   industry: { es: "Healthtech", en: "Healthtech" },
-  year: "2023 — 2025",
+  year: "2023 — Actualidad",
   accent: "#6EE7B7",
 
   role: {
-    es: "Sr. Product Designer — Design System Lead",
-    en: "Sr. Product Designer — Design System Lead",
+    es: "Senior Product Designer",
+    en: "Senior Product Designer",
   },
   team: {
     es: "Cofounders, Product Owner, analistas funcionales, equipo de desarrollo",
