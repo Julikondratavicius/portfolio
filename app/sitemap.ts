@@ -3,6 +3,8 @@ import { locales } from "@/lib/i18n";
 import { projects } from "@/lib/projects";
 import { site } from "@/content/site";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const staticPaths = ["", "/work", "/profile", "/lab"];
