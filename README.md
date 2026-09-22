@@ -128,4 +128,4 @@ lugar que falte.
 
 ## Deploy
 
-Ver [DEPLOY.md](./DEPLOY.md) — el paso a paso completo de Vercel + el DNS en Hostinger.
+Ver [DEPLOY.md](./DEPLOY.md) — publicación en Sites y configuración DNS del dominio.
