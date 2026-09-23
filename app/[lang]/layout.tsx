@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { locales, isLocale, htmlLang, type Locale } from "@/lib/i18n";
 import { site } from "@/content/site";
+import { Inter_Tight, Geist_Mono } from "next/font/google";
+import { Header, FloatingCta } from "@/components/chrome";
+import { MotionRoot, Cursor } from "@/components/motion";
 import "../globals.css";
+
+const sans = Inter_Tight({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -116,16 +122,20 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang={htmlLang[locale]}>
-      <body className="antialiased">
+    <html lang={htmlLang[locale]} className={`${sans.variable} ${mono.variable}`}>
+      <body>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-bg"
+          className="skip-link"
         >
           {locale === "es" ? "Saltar al contenido" : "Skip to content"}
         </a>
 
+        <Header locale={locale} />
         <div id="main">{children}</div>
+        <FloatingCta locale={locale} />
+        <Cursor />
+        <MotionRoot />
 
         <script
           type="application/ld+json"

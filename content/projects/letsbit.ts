@@ -21,6 +21,10 @@ export const letsbit: Project = {
   platforms: { es: "iOS · Android", en: "iOS · Android" },
   tags: ["UX/UI", "Prototyping", "Design Thinking", "Fintech"],
 
+  tagline: {
+    es: "Diseñar para el miedo a equivocarse",
+    en: "Designing for the fear of getting it wrong",
+  },
   headline: {
     es: "Diseñar para cripto es diseñar para el miedo: una operación mal entendida no se deshace.",
     en: "Designing for crypto means designing for fear: a misunderstood transaction cannot be undone.",

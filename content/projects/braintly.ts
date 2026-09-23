@@ -24,6 +24,10 @@ export const braintly: Project = {
   platforms: { es: "Web · Webflow", en: "Web · Webflow" },
   tags: ["Webflow", "Web Design", "No-Code", "Brand"],
 
+  tagline: {
+    es: "Un sitio que el cliente actualiza solo",
+    en: "A website the client runs on its own",
+  },
   headline: {
     es: "Una empresa con doce años de trayectoria que necesitaba contar un modelo de negocio nuevo sin depender de nadie para actualizarlo.",
     en: "A company with twelve years of history that needed to tell a new business model without depending on anyone to update it.",

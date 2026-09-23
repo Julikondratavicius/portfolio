@@ -3,9 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, locales, type Locale } from "@/lib/i18n";
 import { href } from "@/lib/href";
-import { getProject, projects } from "@/lib/projects";
-import { site } from "@/content/site";
-import { isTodo, visible } from "@/lib/content";
+import { getNextProject, getProject, projects } from "@/lib/projects";
+import { isTodo, visible, visibleText } from "@/lib/content";
+import { toneFor } from "@/lib/palette";
+import { Vignette } from "@/components/vignettes";
+import { ChapterIndex, ReadingProgress } from "@/components/motion";
 
 export function generateStaticParams() {
   return locales.flatMap((lang) => projects.map((project) => ({ lang, slug: project.slug })));
@@ -20,38 +22,162 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return { title, description: project.summary[locale], openGraph: { type: "article", title, description: project.summary[locale] } };
 }
 
+const words = {
+  es: { back: "Todos los casos", role: "Rol", team: "Equipo", timeline: "Duración", platforms: "Plataformas", tldr: "En 30 segundos", challenge: "El desafío", did: "Qué hice", focus: "Foco", index: "Índice del caso", decision: "Decisión", options: "Opciones sobre la mesa", chose: "Qué elegí", why: "Por qué", tradeoff: "Qué resigné", learnings: "Lo que me llevo", next: "Siguiente caso", nda: "Las pantallas reales están bajo NDA: las visuales son recreaciones. Puedo mostrar el trabajo completo en una entrevista.", impact: "Impacto", decisions: "Decisiones" },
+  en: { back: "All cases", role: "Role", team: "Team", timeline: "Timeline", platforms: "Platforms", tldr: "In 30 seconds", challenge: "The challenge", did: "What I did", focus: "Focus", index: "Case index", decision: "Decision", options: "Options on the table", chose: "What I chose", why: "Why", tradeoff: "Trade-off", learnings: "What I took away", next: "Next case", nda: "Real screens are under NDA: visuals are recreations. Happy to walk through the full work in an interview.", impact: "Impact", decisions: "Decisions" },
+} as const;
+
+/** La opción que más palabras comparte con lo que se eligió. */
+function chosenIndex(options: readonly string[], choice: string) {
+  const bag = (text: string) => new Set(text.toLowerCase().split(/[^a-záéíóúñü]+/).filter((word) => word.length > 3));
+  const target = bag(choice);
+  const scores = options.map((option) => [...bag(option)].filter((word) => target.has(word)).length);
+  const best = Math.max(...scores);
+  return best > 0 ? scores.indexOf(best) : -1;
+}
+
 export default async function CaseStudyPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
   const { lang, slug } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const project = getProject(slug);
   if (!project) notFound();
-  const spanish = locale === "es";
+  const w = words[locale];
+  const tone = toneFor(project.slug);
+  const next = getNextProject(project.slug);
+  const nextTone = next ? toneFor(next.slug) : tone;
+
+  const meta = [
+    [w.role, project.role[locale]],
+    [w.team, project.team[locale]],
+    [w.timeline, project.timeline[locale]],
+    [w.platforms, project.platforms[locale]],
+  ].filter(([, value]) => !isTodo(value));
   const metrics = project.metrics.filter((metric) => metric.value);
   const chapters = project.chapters
-    .map((chapter) => ({ ...chapter, paragraphs: visible(chapter.body[locale]), items: chapter.bullets ? visible(chapter.bullets[locale]) : [] }))
+    .map((chapter) => ({
+      ...chapter,
+      paragraphs: visible(chapter.body[locale]),
+      items: chapter.bullets ? visible(chapter.bullets[locale]) : [],
+      asideBody: chapter.aside ? visibleText(chapter.aside.body[locale]) : null,
+    }))
     .filter((chapter) => chapter.paragraphs.length > 0 || chapter.items.length > 0);
-  const decisions = project.decisions.filter((decision) => !isTodo(decision.title[locale]) && !isTodo(decision.choice[locale]));
+  const decisions = project.decisions.filter((d) => !isTodo(d.title[locale]) && !isTodo(d.choice[locale]));
   const learnings = visible(project.learnings[locale]);
 
-  return <main className="case-page">
-    <header className="case-top shell"><Link href={href("/", locale)}>← {spanish ? "Julián Kondratavicius" : "Julián Kondratavicius"}</Link><Link href={`mailto:${site.email}`}>{spanish ? "Contacto ↗" : "Get in touch ↗"}</Link></header>
-    <section className="case-hero shell">
-      <p className="eyebrow">{project.client} · {project.industry[locale]} · {project.year}</p>
-      <h1>{project.name}</h1>
-      <p className="case-summary">{project.headline[locale]}</p>
-      <div className="case-meta">
-        {[[spanish ? "Mi rol" : "My role", project.role[locale]], [spanish ? "Equipo" : "Team", project.team[locale]], [spanish ? "Duración" : "Timeline", project.timeline[locale]], [spanish ? "Plataformas" : "Platforms", project.platforms[locale]]].filter(([, value]) => !isTodo(value)).map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}
+  const index = [
+    ...chapters.map((chapter) => ({ id: chapter.id, label: chapter.eyebrow[locale] })),
+    ...(decisions.length ? [{ id: "decisions", label: w.decisions }] : []),
+    ...(learnings.length ? [{ id: "learnings", label: w.learnings }] : []),
+  ];
+
+  return (
+    <main className="case" style={{ ["--bg" as string]: tone.bg, ["--fg" as string]: tone.fg, ["--accent" as string]: tone.accent }}>
+      <ReadingProgress />
+
+      <section className="case-hero">
+        <div className="case-hero-copy">
+          <Link href={`${href("/", locale)}#work`} className="case-back">← {w.back}</Link>
+          <p className="label case-kicker">{project.client} · {project.industry[locale]} · {project.year}</p>
+          <h1 className="case-title">
+            {project.tagline[locale].split(" ").map((word, i) => (
+              <span className="word" key={i}><span style={{ ["--d" as string]: `${0.05 + i * 0.04}s` }}>{word}&nbsp;</span></span>
+            ))}
+          </h1>
+          <p className="case-lede" data-reveal>{project.headline[locale]}</p>
+        </div>
+        <div className="case-hero-media" data-reveal><Vignette slug={project.slug} locale={locale} size="hero" /></div>
+      </section>
+
+      <section className="case-meta">
+        {meta.map(([label, value]) => (
+          <div key={label} data-reveal><span className="label">{label}</span><strong>{value}</strong></div>
+        ))}
+      </section>
+
+      <section className="tldr" data-reveal>
+        <p className="label">{w.tldr}</p>
+        <div className="tldr-grid">
+          <div><span>{w.challenge}</span><p>{chapters.find((c) => c.id === "problem")?.title[locale] ?? chapters[0]?.title[locale]}</p></div>
+          <div><span>{w.did}</span><p>{project.summary[locale]}</p></div>
+          <div><span>{w.focus}</span><ul className="chips">{project.tags.map((t) => <li key={t}>{t}</li>)}</ul></div>
+        </div>
+        {project.nda && <p className="nda">🔒 {w.nda}</p>}
+      </section>
+
+      {metrics.length > 0 && (
+        <section className="case-metrics" aria-label={w.impact}>
+          {metrics.map((metric) => (
+            <div key={metric.label[locale]} data-reveal><strong>{metric.value}</strong><span>{metric.label[locale]}</span></div>
+          ))}
+        </section>
+      )}
+
+      <div className="case-body">
+        <ChapterIndex items={index} label={w.index} />
+        <article className="case-article">
+          {chapters.map((chapter, i) => (
+            <section className="chapter" id={chapter.id} key={chapter.id}>
+              <p className="label chapter-label" data-reveal><span>{String(i + 1).padStart(2, "0")}</span>{chapter.eyebrow[locale]}</p>
+              <h2 data-reveal>{chapter.title[locale]}</h2>
+              {chapter.paragraphs.map((paragraph, j) => <p key={j} data-reveal>{paragraph}</p>)}
+              {chapter.items.length > 0 && (
+                <ul className="point-list">
+                  {chapter.items.map((item, j) => <li key={item} data-reveal style={{ ["--d" as string]: `${j * 0.06}s` }}><span>{String(j + 1).padStart(2, "0")}</span>{item}</li>)}
+                </ul>
+              )}
+              {chapter.aside && chapter.asideBody && (
+                <aside className="callout" data-reveal><strong>{chapter.aside.title[locale]}</strong><p>{chapter.asideBody}</p></aside>
+              )}
+            </section>
+          ))}
+
+          {decisions.length > 0 && (
+            <section className="chapter" id="decisions">
+              <p className="label chapter-label" data-reveal><span>{String(chapters.length + 1).padStart(2, "0")}</span>{w.decisions}</p>
+              <div className="decisions">
+                {decisions.map((d, i) => (
+                  <article className="decision" key={i} data-reveal>
+                    <span className="decision-n">{w.decision} {String(i + 1).padStart(2, "0")}</span>
+                    <h3>{d.title[locale]}</h3>
+                    <p className="decision-context">{d.context[locale]}</p>
+                    <p className="label">{w.options}</p>
+                    <ul className="options">
+                      {d.options[locale].map((o, j) => <li key={o} className={j === chosenIndex(d.options[locale], d.choice[locale]) ? "chosen" : ""}>{o}</li>)}
+                    </ul>
+                    <div className="decision-grid">
+                      <div className="decision-choice"><span className="label">✓ {w.chose}</span><p>{d.choice[locale]}</p><p className="muted">{d.why[locale]}</p></div>
+                      <div className="decision-trade"><span className="label">↯ {w.tradeoff}</span><p>{d.tradeoff[locale]}</p></div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {learnings.length > 0 && (
+            <section className="chapter" id="learnings">
+              <p className="label chapter-label" data-reveal><span>{String(chapters.length + (decisions.length ? 2 : 1)).padStart(2, "0")}</span>{w.learnings}</p>
+              <ol className="learnings">
+                {learnings.map((item) => <li key={item} data-reveal>{item}</li>)}
+              </ol>
+            </section>
+          )}
+        </article>
       </div>
-    </section>
-    <article className="case-content">
-      {metrics.length > 0 && <section className="case-metrics" aria-label={spanish ? "Impacto" : "Impact"}>{metrics.map((metric) => <div className="case-metric" key={metric.label[locale]}><strong>{metric.value}</strong><span>{metric.label[locale]}</span></div>)}</section>}
-      {chapters.map((chapter) => <section className="case-chapter" key={chapter.id}>
-        <span className="case-chapter-label">{chapter.eyebrow[locale]}</span><div><h2>{chapter.title[locale]}</h2>{chapter.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}{chapter.items.length > 0 && <ul>{chapter.items.map((item) => <li key={item}>{item}</li>)}</ul>}</div>
-      </section>)}
-      {decisions.map((decision, index) => <section className="case-chapter" key={`decision-${index}`}><span className="case-chapter-label">{spanish ? "Decisión" : "Decision"} 0{index + 1}</span><div><h2>{decision.title[locale]}</h2><p>{decision.context[locale]}</p><ul>{decision.options[locale].map((option) => <li key={option}>{option}</li>)}</ul><p><strong>{decision.choice[locale]}</strong></p><p>{decision.why[locale]}</p><p>{spanish ? "Qué resigné:" : "Trade-off:"} {decision.tradeoff[locale]}</p></div></section>)}
-      {learnings.length > 0 && <section className="case-chapter"><span className="case-chapter-label">{spanish ? "Aprendizajes" : "Learnings"}</span><div><h2>{spanish ? "Lo que me llevo" : "What I learned"}</h2><ul>{learnings.map((item) => <li key={item}>{item}</li>)}</ul></div></section>}
-      <Link className="case-back" href={href("/", locale)}>← {spanish ? "Volver al portfolio" : "Back to portfolio"}</Link>
-    </article>
-  </main>;
+
+      {next && (
+        <Link
+          href={href(`/work/${next.slug}`, locale)}
+          className="next-case"
+          data-cursor={w.next}
+          style={{ ["--bg" as string]: nextTone.bg, ["--fg" as string]: nextTone.fg }}
+        >
+          <span className="label">{w.next} →</span>
+          <strong>{next.client}</strong>
+          <span className="next-tagline">{next.tagline[locale]}</span>
+        </Link>
+      )}
+    </main>
+  );
 }

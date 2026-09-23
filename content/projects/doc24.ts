@@ -34,6 +34,10 @@ export const doc24: Project = {
   platforms: { es: "Web app · iOS · Android", en: "Web app · iOS · Android" },
   tags: ["Design System", "Product Strategy", "End-to-end flows", "Scrum"],
 
+  tagline: {
+    es: "El sistema detrás del bienestar corporativo",
+    en: "The system behind corporate wellbeing",
+  },
   headline: {
     es: "Un producto de bienestar corporativo que crecía más rápido de lo que el diseño podía sostener. Construí el sistema que lo ordenó.",
     en: "A corporate wellness product growing faster than design could sustain. I built the system that brought it back under control.",

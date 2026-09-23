@@ -71,6 +71,8 @@ export interface Project {
   platforms: Localized<string>;
   tags: string[];
 
+  /** Titular corto para la home: se escanea, no se lee. */
+  tagline: Localized<string>;
   /** Una linea de impacto, va en el hero del case study. */
   headline: Localized<string>;
   /** Parrafo corto para la tarjeta de la grilla. */

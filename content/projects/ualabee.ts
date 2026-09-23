@@ -21,6 +21,10 @@ export const ualabee: Project = {
   platforms: { es: "iOS · Android · Web", en: "iOS · Android · Web" },
   tags: ["UX Research", "Usability", "Wireframing", "Multi-platform"],
 
+  tagline: {
+    es: "Movilidad pensada para la parada, no para el escritorio",
+    en: "Mobility designed for the bus stop, not the desk",
+  },
   headline: {
     es: "La movilidad urbana no se diseña en el escritorio: se diseña parado en la parada, con el celular en la mano y el colectivo llegando.",
     en: "Urban mobility isn't designed at a desk: it's designed standing at the stop, phone in hand, with the bus pulling in.",
