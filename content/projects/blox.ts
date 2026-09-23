@@ -11,7 +11,6 @@ export const blox: Project = {
   industry: { es: "SaaS / Sports-tech", en: "SaaS / Sports-tech" },
   year: "2026 — Hoy",
   accent: "#5AE493",
-  url: "https://v0-appblox.vercel.app",
   personal: true,
 
   role: {
