@@ -243,25 +243,3 @@ export function CopyEmail({ email, copyLabel, copiedLabel }: { email: string; co
     </button>
   );
 }
-
-/** Feed de actividad que rota: muestra cómo trabajo en lugar de contarlo. */
-export function ActivityFeed({ items }: { items: { tag: string; text: string; time: string; tone: string }[] }) {
-  const [start, setStart] = useState(0);
-  useEffect(() => {
-    if (reduced()) return;
-    const id = setInterval(() => setStart((s) => (s + 1) % items.length), 2600);
-    return () => clearInterval(id);
-  }, [items.length]);
-  const visibleItems = [0, 1, 2].map((offset) => items[(start + offset) % items.length]);
-  return (
-    <ul className="feed" aria-label="Activity">
-      {visibleItems.map((item, i) => (
-        <li key={`${item.text}-${start}`} className="feed-item" style={{ ["--i" as string]: i }}>
-          <span className="feed-dot" style={{ background: item.tone }} />
-          <span className="feed-body"><strong>{item.tag}</strong>{item.text}</span>
-          <span className="feed-time">{item.time}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}

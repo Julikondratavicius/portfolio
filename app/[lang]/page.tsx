@@ -6,7 +6,7 @@ import { projects } from "@/lib/projects";
 import { experience, principles, site } from "@/content/site";
 import { Vignette } from "@/components/vignettes";
 import { toneFor } from "@/lib/palette";
-import { ActivityFeed, CopyEmail, Counter, Magnetic, ScrollText } from "@/components/motion";
+import { CopyEmail, Counter, Magnetic, ScrollText } from "@/components/motion";
 
 const words = {
   es: {
@@ -14,13 +14,6 @@ const words = {
     lines: ["Hago que", "lo complejo", "sea claro."],
     intro: "+5 años llevando productos de healthtech, fintech y movilidad de la idea a un sistema que el equipo puede escalar.",
     scroll: "Scrolleá",
-    feed: [
-      { tag: "Design System", text: "Nuevo componente con sus 7 estados", time: "ahora", tone: "#6ee7b7" },
-      { tag: "Research", text: "Hallazgos priorizados con producto", time: "2 min", tone: "#a5b4fc" },
-      { tag: "Decisión", text: "Trade-off documentado para negocio", time: "8 min", tone: "#f4c430" },
-      { tag: "Handoff", text: "Specs listas, cero idas y vueltas", time: "15 min", tone: "#f0a3c4" },
-      { tag: "Prototipo", text: "Flujo validado con usuarios reales", time: "1 h", tone: "#6ee7b7" },
-    ],
     workLabel: "Trabajo seleccionado",
     workTitle: "Casos donde el diseño movió el producto",
     view: "Ver caso",
@@ -46,13 +39,6 @@ const words = {
     lines: ["I make", "complex things", "feel clear."],
     intro: "5+ years taking healthtech, fintech and mobility products from idea to a system teams can scale.",
     scroll: "Scroll",
-    feed: [
-      { tag: "Design System", text: "New component shipped with all 7 states", time: "now", tone: "#6ee7b7" },
-      { tag: "Research", text: "Findings prioritized with product", time: "2 min", tone: "#a5b4fc" },
-      { tag: "Decision", text: "Trade-off documented for business", time: "8 min", tone: "#f4c430" },
-      { tag: "Handoff", text: "Specs ready, zero back-and-forth", time: "15 min", tone: "#f0a3c4" },
-      { tag: "Prototype", text: "Flow validated with real users", time: "1 h", tone: "#6ee7b7" },
-    ],
     workLabel: "Selected work",
     workTitle: "Cases where design moved the product",
     view: "View case",
@@ -80,7 +66,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const c = words[locale];
-  const marquee = [...projects.map((p) => p.client), "Healthtech", "Fintech", "Mobility", "Design Systems"];
+  const marquee = ["Product Design", "Design Systems", "HealthTech", "Fintech", "Crypto", "SaaS", "MaaS", "B2B2C", "0 → 1", "Product Discovery", "Data-driven UX", "Startups"];
 
   return (
     <main className="home" id="top">
@@ -88,7 +74,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <section className="hero">
         <div className="hero-top">
           <p className="label" data-reveal><span className="status-dot" />{c.eyebrow}</p>
-          <p className="label hero-loc" data-reveal>{site.location[locale]} · Remote</p>
         </div>
         <h1 className="hero-title">
           {c.lines.map((line, i) => (
@@ -97,7 +82,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </h1>
         <div className="hero-bottom">
           <p className="hero-intro" data-reveal>{c.intro}</p>
-          <ActivityFeed items={[...c.feed]} />
           <a href="#work" className="scroll-cue" data-reveal><span />{c.scroll}</a>
         </div>
       </section>

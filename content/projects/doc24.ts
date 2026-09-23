@@ -32,19 +32,19 @@ export const doc24: Project = {
   },
   timeline: { es: "2 años", en: "2 years" },
   platforms: { es: "Web app · iOS · Android", en: "Web app · iOS · Android" },
-  tags: ["Design System", "Product Strategy", "End-to-end flows", "Scrum"],
+  tags: ["Design System", "HealthTech B2B2C", "Data-driven UX", "Scrum"],
 
   tagline: {
-    es: "El sistema detrás del bienestar corporativo",
-    en: "The system behind corporate wellbeing",
+    es: "El design system detrás del bienestar inteligente",
+    en: "The design system behind smart wellbeing",
   },
   headline: {
     es: "Un producto de bienestar corporativo que crecía más rápido de lo que el diseño podía sostener. Construí el sistema que lo ordenó.",
     en: "A corporate wellness product growing faster than design could sustain. I built the system that brought it back under control.",
   },
   summary: {
-    es: "Lideré la creación del Design System completo y diseñé los flujos end-to-end de bienestar a partir de datos reales de usuarios, trabajando entre negocio, tecnología y producto.",
-    en: "Led the creation of the full Design System and designed the end-to-end wellness flows from real user data, working across business, engineering and product.",
+    es: "Plataforma de bienestar de doble impacto: acompaña a cada persona con una experiencia de salud personalizada y le da a las organizaciones indicadores para anticiparse y decidir. Lideré el Design System y diseñé los flujos end-to-end a partir de cuestionarios de autopercepción y datos reales.",
+    en: "A dual-impact wellbeing platform: it guides each person through a personalized health experience and gives organizations indicators to anticipate and decide. I led the Design System and designed the end-to-end flows from self-perception questionnaires and real data.",
   },
 
   cover: {

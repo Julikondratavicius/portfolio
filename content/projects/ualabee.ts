@@ -19,19 +19,19 @@ export const ualabee: Project = {
   },
   timeline: { es: "TODO: ej. 1 año", en: "TODO: e.g. 1 year" },
   platforms: { es: "iOS · Android · Web", en: "iOS · Android · Web" },
-  tags: ["UX Research", "Usability", "Wireframing", "Multi-platform"],
+  tags: ["MaaS", "UX Research", "Real-time data", "Usability"],
 
   tagline: {
-    es: "Movilidad pensada para la parada, no para el escritorio",
-    en: "Mobility designed for the bus stop, not the desk",
+    es: "Transporte público en tiempo real, pensado para la parada",
+    en: "Real-time public transit, designed for the bus stop",
   },
   headline: {
     es: "La movilidad urbana no se diseña en el escritorio: se diseña parado en la parada, con el celular en la mano y el colectivo llegando.",
     en: "Urban mobility isn't designed at a desk: it's designed standing at the stop, phone in hand, with the bus pulling in.",
   },
   summary: {
-    es: "Investigación de usuarios, detección de problemas de usabilidad y wireframes adaptados a múltiples plataformas y dispositivos.",
-    en: "User research, usability issue detection and wireframes adapted to multiple platforms and devices.",
+    es: "App de movilidad (MaaS) que une recorridos, paradas y la posición de los vehículos en tiempo real para que cada viaje sea predecible. Investigué con pasajeros reales, detecté problemas de usabilidad y diseñé wireframes multiplataforma.",
+    en: "A mobility app (MaaS) that brings routes, stops and live vehicle positions together so every trip feels predictable. I researched with real riders, found usability issues and designed cross-platform wireframes.",
   },
 
   cover: {

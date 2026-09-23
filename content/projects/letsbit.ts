@@ -19,19 +19,19 @@ export const letsbit: Project = {
   },
   timeline: { es: "TODO: ej. 8 meses", en: "TODO: e.g. 8 months" },
   platforms: { es: "iOS · Android", en: "iOS · Android" },
-  tags: ["UX/UI", "Prototyping", "Design Thinking", "Fintech"],
+  tags: ["Fintech", "Crypto", "Prototyping", "Design Thinking"],
 
   tagline: {
-    es: "Diseñar para el miedo a equivocarse",
-    en: "Designing for the fear of getting it wrong",
+    es: "Invertir en cripto sin miedo a equivocarse",
+    en: "Investing in crypto without the fear of getting it wrong",
   },
   headline: {
     es: "Diseñar para cripto es diseñar para el miedo: una operación mal entendida no se deshace.",
     en: "Designing for crypto means designing for fear: a misunderstood transaction cannot be undone.",
   },
   summary: {
-    es: "Prototipos funcionales para validar flujos de usuario en el ecosistema cripto, con Design Thinking y metodologías ágiles junto a equipos multidisciplinarios.",
-    en: "Functional prototypes to validate user flows in the crypto ecosystem, using Design Thinking and agile methods alongside cross-functional teams.",
+    es: "Billetera virtual regulada —hoy LB Finanzas— para invertir en cripto, acciones y dólares desde el celular. Diseñé y validé con prototipos funcionales los flujos de operación, donde un error no tiene botón de deshacer.",
+    en: "A regulated digital wallet —now LB Finanzas— to invest in crypto, stocks and dollars from your phone. I designed and validated the transaction flows with functional prototypes, where a mistake has no undo button.",
   },
 
   cover: {
