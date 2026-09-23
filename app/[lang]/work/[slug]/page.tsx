@@ -23,18 +23,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 }
 
 const words = {
-  es: { back: "Todos los casos", role: "Rol", team: "Equipo", timeline: "Duración", platforms: "Plataformas", tldr: "En 30 segundos", challenge: "El desafío", did: "Qué hice", focus: "Foco", index: "Índice del caso", decision: "Decisión", options: "Opciones sobre la mesa", chose: "Qué elegí", why: "Por qué", tradeoff: "Qué resigné", learnings: "Lo que me llevo", next: "Siguiente caso", process: "Proceso", impact: "Impacto", decisions: "Decisiones" },
-  en: { back: "All cases", role: "Role", team: "Team", timeline: "Timeline", platforms: "Platforms", tldr: "In 30 seconds", challenge: "The challenge", did: "What I did", focus: "Focus", index: "Case index", decision: "Decision", options: "Options on the table", chose: "What I chose", why: "Why", tradeoff: "Trade-off", learnings: "What I took away", next: "Next case", process: "Process", impact: "Impact", decisions: "Decisions" },
+  es: { back: "Todos los casos", role: "Rol", team: "Equipo", timeline: "Duración", platforms: "Plataformas", tldr: "En 30 segundos", challenge: "El desafío", did: "Qué hice", focus: "Foco", index: "Índice del caso", decision: "Decisión", learnings: "Lo que me llevo", next: "Siguiente caso", process: "Proceso", impact: "Impacto", decisions: "Decisiones" },
+  en: { back: "All cases", role: "Role", team: "Team", timeline: "Timeline", platforms: "Platforms", tldr: "In 30 seconds", challenge: "The challenge", did: "What I did", focus: "Focus", index: "Case index", decision: "Decision", learnings: "What I took away", next: "Next case", process: "Process", impact: "Impact", decisions: "Decisions" },
 } as const;
-
-/** La opción que más palabras comparte con lo que se eligió. */
-function chosenIndex(options: readonly string[], choice: string) {
-  const bag = (text: string) => new Set(text.toLowerCase().split(/[^a-záéíóúñü]+/).filter((word) => word.length > 3));
-  const target = bag(choice);
-  const scores = options.map((option) => [...bag(option)].filter((word) => target.has(word)).length);
-  const best = Math.max(...scores);
-  return best > 0 ? scores.indexOf(best) : -1;
-}
 
 export default async function CaseStudyPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
   const { lang, slug } = await params;
@@ -155,14 +146,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
                     <span className="decision-n">{w.decision} {String(i + 1).padStart(2, "0")}</span>
                     <h3>{d.title[locale]}</h3>
                     <p className="decision-context">{d.context[locale]}</p>
-                    <p className="label">{w.options}</p>
-                    <ul className="options">
-                      {d.options[locale].map((o, j) => <li key={o} className={j === chosenIndex(d.options[locale], d.choice[locale]) ? "chosen" : ""}>{o}</li>)}
-                    </ul>
-                    <div className="decision-grid">
-                      <div className="decision-choice"><span className="label">✓ {w.chose}</span><p>{d.choice[locale]}</p><p className="muted">{d.why[locale]}</p></div>
-                      <div className="decision-trade"><span className="label">↯ {w.tradeoff}</span><p>{d.tradeoff[locale]}</p></div>
-                    </div>
+                    <p className="decision-why">{d.why[locale]}</p>
                   </article>
                 ))}
               </div>

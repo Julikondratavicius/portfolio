@@ -14,10 +14,12 @@ const finePointer = () => typeof window !== "undefined" && window.matchMedia("(p
  */
 export function MotionRoot() {
   const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     if (reduced()) return;
     const lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 4), anchors: { offset: -80 } });
+    lenisRef.current = lenis;
     let frame = requestAnimationFrame(function raf(time) {
       lenis.raf(time);
       frame = requestAnimationFrame(raf);
@@ -26,8 +28,26 @@ export function MotionRoot() {
     return () => {
       cancelAnimationFrame(frame);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
+
+  // Al cambiar de página, Lenis conserva la posición de la anterior:
+  // arrancamos arriba, o en el ancla si la URL trae una (#work).
+  useEffect(() => {
+    const lenis = lenisRef.current;
+    const hash = window.location.hash;
+    const target = hash ? document.querySelector<HTMLElement>(hash) : null;
+    lenis?.resize();
+    if (target) {
+      const y = target.getBoundingClientRect().top + window.scrollY - 80;
+      if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
+      else window.scrollTo(0, y);
+    } else {
+      if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const els = document.querySelectorAll<HTMLElement>("[data-reveal]:not(.is-in)");

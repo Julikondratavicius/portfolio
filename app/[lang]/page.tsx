@@ -26,6 +26,15 @@ const words = {
     approachLabel: "Enfoque",
     manifesto: "No diseño pantallas sueltas. Diseño el sistema y las decisiones que hacen que un equipo de producto avance más rápido, con criterio, y sin tener que volver a discutir lo mismo en cada sprint.",
     capabilities: ["Product Strategy", "Product Management", "Business Strategy", "Roadmapping", "Stakeholder Management", "Team Leadership", "Discovery", "Design Systems", "AI-assisted workflows"],
+    aiLabel: "IA en el proceso",
+    aiTitle: "Diseño y construyo producto con IA",
+    aiIntro: "Uso IA en cada etapa para investigar, prototipar y lanzar más rápido, sin perder el criterio de producto. Este portfolio lo diseñé y construí así.",
+    aiSteps: [
+      { n: "01", title: "Discovery", body: "Sintetizo entrevistas, research y datos para llegar antes a los insights y a las preguntas correctas.", tools: ["Claude", "ChatGPT"] },
+      { n: "02", title: "Prototipado", body: "De la idea a un prototipo funcional en horas, no semanas, para validar con usuarios reales.", tools: ["v0", "Figma Make", "Claude"] },
+      { n: "03", title: "Diseño y build", body: "Diseño y construyo producto real junto al código: del design system al deploy.", tools: ["Claude Code", "Codex", "Cursor"] },
+      { n: "04", title: "Validación", body: "Testeo, itero y mido antes de escalar, con ciclos cortos entre diseño, negocio y desarrollo.", tools: ["Claude Code", "Vercel"] },
+    ],
     expLabel: "Experiencia",
     expTitle: "Dónde lo aprendí",
     contactLabel: "Contacto",
@@ -50,6 +59,15 @@ const words = {
     approachLabel: "Approach",
     manifesto: "I don’t design isolated screens. I design the system and the decisions that help a product team move faster, with clear reasoning, without re-arguing the same things every sprint.",
     capabilities: ["Product Strategy", "Product Management", "Business Strategy", "Roadmapping", "Stakeholder Management", "Team Leadership", "Discovery", "Design Systems", "AI-assisted workflows"],
+    aiLabel: "AI in the process",
+    aiTitle: "I design and build product with AI",
+    aiIntro: "I use AI at every stage to research, prototype and ship faster, without losing product judgment. This portfolio was designed and built that way.",
+    aiSteps: [
+      { n: "01", title: "Discovery", body: "I synthesize interviews, research and data to reach insights — and the right questions — sooner.", tools: ["Claude", "ChatGPT"] },
+      { n: "02", title: "Prototyping", body: "From idea to a working prototype in hours, not weeks, to validate with real users.", tools: ["v0", "Figma Make", "Claude"] },
+      { n: "03", title: "Design & build", body: "I design and build real product alongside the code: from design system to deploy.", tools: ["Claude Code", "Codex", "Cursor"] },
+      { n: "04", title: "Validation", body: "I test, iterate and measure before scaling, with short loops between design, business and engineering.", tools: ["Claude Code", "Vercel"] },
+    ],
     expLabel: "Experience",
     expTitle: "Where I learned it",
     contactLabel: "Contact",
@@ -154,10 +172,31 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </ul>
       </section>
 
+      {/* AI */}
+      <section id="ai" className="ai">
+        <div className="section-head">
+          <p className="label" data-reveal>03 — {c.aiLabel}</p>
+          <div>
+            <h2 className="display-2" data-reveal>{c.aiTitle}</h2>
+            <p className="ai-intro" data-reveal>{c.aiIntro}</p>
+          </div>
+        </div>
+        <ol className="ai-steps">
+          {c.aiSteps.map((step, i) => (
+            <li key={step.n} className="ai-step" data-reveal style={{ ["--d" as string]: `${i * 0.08}s` }}>
+              <span className="ai-n">{step.n}</span>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+              <ul className="ai-tools">{step.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul>
+            </li>
+          ))}
+        </ol>
+      </section>
+
       {/* EXPERIENCE */}
       <section id="experience" className="experience">
         <div className="section-head">
-          <p className="label" data-reveal>03 — {c.expLabel}</p>
+          <p className="label" data-reveal>04 — {c.expLabel}</p>
           <h2 className="display-2" data-reveal>{c.expTitle}</h2>
         </div>
         <ol className="jobs">
@@ -175,7 +214,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
       {/* CONTACT */}
       <footer className="contact" id="contact">
-        <p className="label">04 — {c.contactLabel}</p>
+        <p className="label">05 — {c.contactLabel}</p>
         <h2 className="contact-title">
           {c.contactTitle.map((line) => <span className="line" key={line} data-reveal><span>{line}</span></span>)}
         </h2>
