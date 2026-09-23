@@ -5,7 +5,7 @@ export const site = {
   role: "Senior Product Designer & Design Lead",
   email: "jjkondratavicius@gmail.com",
   linkedin: "https://www.linkedin.com/in/juli%C3%A1n-kondratavicius-8163b1189/",
-  url: "https://juliankondratavicius.com",
+  url: "https://jkondratavicius.com",
   location: { es: "Rosario, Argentina", en: "Rosario, Argentina" },
   /** Poné acá el archivo cuando lo subas a /public/cv/. */
   cv: {

@@ -13,17 +13,14 @@
 Vercel (plan Hobby) sólo despliega commits cuyo autor es un usuario de GitHub
 que tiene acceso al proyecto. Asocia el autor por el **email del commit**.
 
-- `julian.kondratavicius@doc24.com.ar` → vinculado al usuario `Julikondratavicius`. ✅
-- `jjkondratavicius@gmail.com` → no está vinculado a ninguna cuenta de GitHub. ❌ Bloqueado.
-
-Este repo tiene fijado el email correcto en su config local de git
-(`git config --local user.email`). Si alguna herramienta lo cambia, los deploys
-vuelven a bloquearse. Alternativa permanente: agregar el gmail en
-GitHub → Settings → Emails.
+Los commits salen con `jjkondratavicius@gmail.com` (config de git local y
+global). Ese email tiene que estar agregado y verificado en
+GitHub → Settings → Emails de la cuenta `Julikondratavicius`; si no, Vercel
+no reconoce al autor y bloquea el deploy.
 
 ## Dominio
 
-El sitio usa `juliankondratavicius.com` como URL canónica (`content/site.ts`).
+El sitio usa `jkondratavicius.com` como URL canónica (`content/site.ts`).
 Para servirlo desde Vercel: **Project → Settings → Domains**, agregar el dominio
 y cargar en el DNS los registros que muestre Vercel. No cambies los registros
 de correo (MX, SPF, DKIM o DMARC).
