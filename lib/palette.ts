@@ -1,11 +1,20 @@
-/** Color de cada proyecto: fondo del panel, texto y acento. */
+/**
+ * Colores de marca de cada proyecto, tomados de sus sitios oficiales:
+ * fondo del panel, texto y acento.
+ */
 export const palette: Record<string, { bg: string; fg: string; accent: string }> = {
-  "doc24-wehealthy": { bg: "#0f3b33", fg: "#e9f7f1", accent: "#6ee7b7" },
-  letsbit: { bg: "#15152e", fg: "#ecebff", accent: "#a5b4fc" },
-  ualabee: { bg: "#f4c430", fg: "#1c1a12", accent: "#1c1a12" },
-  "rosario-fitness-games": { bg: "#0a1830", fg: "#eaf1ff", accent: "#3b8bff" },
-  konstrudesch: { bg: "#18191d", fg: "#f5f1ea", accent: "#f59e0b" },
-  braintly: { bg: "#f3d3e0", fg: "#2a1420", accent: "#b0306a" },
+  // wehealthy (doc24): índigo + degradé rosa → naranja
+  "doc24-wehealthy": { bg: "#2a2673", fg: "#eef3fb", accent: "#ff91ff" },
+  // LB Finanzas (ex LetsBit): violeta + lavanda
+  letsbit: { bg: "#522398", fg: "#fbfaff", accent: "#f4e9fe" },
+  // Ualabee: azul + celeste
+  ualabee: { bg: "#1b6afe", fg: "#ffffff", accent: "#e2ecff" },
+  // Rosario Fitness Games: navy + azul eléctrico
+  "rosario-fitness-games": { bg: "#0a1a38", fg: "#f7fbff", accent: "#2c92f1" },
+  // Konstrudesch: navy + naranja
+  konstrudesch: { bg: "#1c2535", fg: "#f8f6f2", accent: "#e8850a" },
+  // Braintly: negro + menta
+  braintly: { bg: "#0f0f0f", fg: "#ffffff", accent: "#47ffcb" },
 };
 
 export function toneFor(slug: string) {

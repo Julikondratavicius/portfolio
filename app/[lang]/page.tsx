@@ -21,11 +21,11 @@ const words = {
       { n: 5, prefix: "+", label: "años diseñando producto" },
       { n: 6, label: "industrias: salud, finanzas, movilidad, software, deporte y construcción" },
       { n: 3, label: "plataformas: web, iOS y Android" },
-      { n: 1, label: "design system construido desde cero" },
+      { n: 0, text: "0→1", label: "productos llevados de la idea al mercado junto a negocio" },
     ],
     approachLabel: "Enfoque",
     manifesto: "No diseño pantallas sueltas. Diseño el sistema y las decisiones que hacen que un equipo de producto avance más rápido, con criterio, y sin tener que volver a discutir lo mismo en cada sprint.",
-    capabilities: ["Product Strategy", "Design Systems", "UX Research", "Prototyping", "Discovery", "Stakeholder Management", "Design Ops", "AI-assisted design"],
+    capabilities: ["Product Strategy", "Product Management", "Business Strategy", "Roadmapping", "Stakeholder Management", "Team Leadership", "Discovery", "Design Systems", "AI-assisted workflows"],
     expLabel: "Experiencia",
     expTitle: "Dónde lo aprendí",
     contactLabel: "Contacto",
@@ -46,11 +46,11 @@ const words = {
       { n: 5, prefix: "+", label: "years designing products" },
       { n: 6, label: "industries: health, finance, mobility, software, sports and construction" },
       { n: 3, label: "platforms: web, iOS and Android" },
-      { n: 1, label: "design system built from scratch" },
+      { n: 0, text: "0→1", label: "products taken from idea to market alongside business" },
     ],
     approachLabel: "Approach",
     manifesto: "I don’t design isolated screens. I design the system and the decisions that help a product team move faster, with clear reasoning, without re-arguing the same things every sprint.",
-    capabilities: ["Product Strategy", "Design Systems", "UX Research", "Prototyping", "Discovery", "Stakeholder Management", "Design Ops", "AI-assisted design"],
+    capabilities: ["Product Strategy", "Product Management", "Business Strategy", "Roadmapping", "Stakeholder Management", "Team Leadership", "Discovery", "Design Systems", "AI-assisted workflows"],
     expLabel: "Experience",
     expTitle: "Where I learned it",
     contactLabel: "Contact",
@@ -132,7 +132,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <section className="numbers">
         {c.numbers.map((item, i) => (
           <div className="number" key={item.label} data-reveal style={{ ["--d" as string]: `${i * 0.08}s` }}>
-            <strong><Counter value={item.n} prefix={"prefix" in item ? item.prefix : ""} /></strong>
+            <strong>{"text" in item ? item.text : <Counter value={item.n} prefix={"prefix" in item ? item.prefix : ""} />}</strong>
             <span>{item.label}</span>
           </div>
         ))}
