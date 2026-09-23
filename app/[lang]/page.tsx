@@ -4,7 +4,6 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { href } from "@/lib/href";
 import { projects } from "@/lib/projects";
 import { experience, principles, site } from "@/content/site";
-import { faq } from "@/content/faq";
 import { Vignette } from "@/components/vignettes";
 import { toneFor } from "@/lib/palette";
 import { CopyEmail, Counter, Magnetic, ScrollText } from "@/components/motion";
@@ -36,8 +35,6 @@ const words = {
       { n: "03", title: "Diseño y build", body: "Diseño y construyo producto real junto al código: del design system al deploy.", tools: ["Claude Code", "Codex", "Cursor"] },
       { n: "04", title: "Validación", body: "Testeo, itero y mido antes de escalar, con ciclos cortos entre diseño, negocio y desarrollo.", tools: ["Claude Code", "Vercel"] },
     ],
-    faqLabel: "Preguntas frecuentes",
-    faqTitle: "Lo que suelen preguntarme",
     expLabel: "Experiencia",
     expTitle: "Dónde lo aprendí",
     contactLabel: "Contacto",
@@ -71,8 +68,6 @@ const words = {
       { n: "03", title: "Design & build", body: "I design and build real product alongside the code: from design system to deploy.", tools: ["Claude Code", "Codex", "Cursor"] },
       { n: "04", title: "Validation", body: "I test, iterate and measure before scaling, with short loops between design, business and engineering.", tools: ["Claude Code", "Vercel"] },
     ],
-    faqLabel: "FAQ",
-    faqTitle: "What people usually ask",
     expLabel: "Experience",
     expTitle: "Where I learned it",
     contactLabel: "Contact",
@@ -107,15 +102,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           url: `${site.url}/${locale}/work/${project.slug}`,
           name: `${project.name} — ${project.tagline[locale]}`,
         })),
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: faq.map((item) => ({
-          "@type": "Question",
-          name: item.q[locale],
-          acceptedAnswer: { "@type": "Answer", text: item.a[locale] },
-        })),
-      },
+      }
     ],
   };
   const marquee = ["AI Product Design", "Product Design", "AI-driven Discovery", "Design Systems", "Prototyping with AI", "HealthTech", "Fintech", "Crypto", "SaaS", "MaaS", "B2B2C", "0 → 1", "AI-native Product", "Data-driven UX", "Startups"];
@@ -249,25 +236,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </ol>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" className="faq">
-        <div className="section-head">
-          <p className="label" data-reveal>05 — {c.faqLabel}</p>
-          <h2 className="display-2" data-reveal>{c.faqTitle}</h2>
-        </div>
-        <div className="faq-list">
-          {faq.map((item, i) => (
-            <details key={item.q.es} className="faq-item" data-reveal open={i === 0}>
-              <summary><span>{item.q[locale]}</span><i aria-hidden="true" /></summary>
-              <p>{item.a[locale]}</p>
-            </details>
-          ))}
-        </div>
-      </section>
-
       {/* CONTACT */}
       <footer className="contact" id="contact">
-        <p className="label">06 — {c.contactLabel}</p>
+        <p className="label">05 — {c.contactLabel}</p>
         <h2 className="contact-title">
           {c.contactTitle.map((line) => <span className="line" key={line} data-reveal><span>{line}</span></span>)}
         </h2>

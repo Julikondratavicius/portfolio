@@ -2,8 +2,8 @@ import type { Localized } from "@/lib/i18n";
 
 /**
  * Preguntas frecuentes: respuestas cortas y citables.
- * Se muestran en la home y se publican como FAQPage (schema.org) para
- * buscadores y motores de IA (ChatGPT, Perplexity, Gemini, Google AI Overviews).
+ * No se muestran en la web: se publican en /llms.txt y /llms-full.txt para
+ * motores de IA (ChatGPT, Claude, Perplexity, Gemini).
  */
 export const faq: { q: Localized<string>; a: Localized<string> }[] = [
   {
