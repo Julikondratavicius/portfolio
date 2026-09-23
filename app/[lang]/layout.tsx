@@ -1,19 +1,8 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
 import { notFound } from "next/navigation";
 import { locales, isLocale, htmlLang, type Locale } from "@/lib/i18n";
 import { site } from "@/content/site";
-import { Nav } from "@/components/nav";
-import { Footer } from "@/components/footer";
-import { Analytics } from "@/components/analytics";
 import "../globals.css";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700"],
-  variable: "--font-outfit",
-  display: "swap",
-});
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -22,13 +11,11 @@ export function generateStaticParams() {
 const meta: Record<Locale, { title: string; description: string }> = {
   es: {
     title: `${site.name} — ${site.role}`,
-    description:
-      "Senior Product Designer y Product Builder en Rosario, Argentina. Diseño productos digitales en DOC24 y construyo Blox.",
+    description: "Diseñador de producto digital y design lead en Rosario, Argentina. Estrategia, experiencia y sistemas para productos que avanzan.",
   },
   en: {
     title: `${site.name} — ${site.role}`,
-    description:
-      "Senior Product Designer and Product Builder in Rosario, Argentina. Designing digital health products at DOC24 and building Blox.",
+    description: "Digital product designer and design lead in Rosario, Argentina. Strategy, experience and systems for products that move forward.",
   },
 };
 
@@ -129,7 +116,7 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang={htmlLang[locale]} className={outfit.variable}>
+    <html lang={htmlLang[locale]}>
       <body className="antialiased">
         <a
           href="#main"
@@ -138,10 +125,7 @@ export default async function RootLayout({
           {locale === "es" ? "Saltar al contenido" : "Skip to content"}
         </a>
 
-        <Nav lang={locale} />
-        <main id="main">{children}</main>
-        <Footer lang={locale} />
-        <Analytics />
+        <div id="main">{children}</div>
 
         <script
           type="application/ld+json"

@@ -1,50 +1,33 @@
-# Publicación y dominio
+# Publicación en Vercel
 
-## Publicación
+## Identidad del proyecto
 
-El sitio está alojado en OpenAI Sites. La versión de producción usa el contenido
-de este repositorio y la carpeta estática `out/` generada por Next.js.
+- Repositorio: `https://github.com/Julikondratavicius/portfolio`
+- Rama de producción: `main`
+- Framework: Next.js (export estático, `output: "export"` en `next.config.ts`)
+- Comando de build: `npm run build`
+- En Vercel dejá el Framework Preset en **Next.js** y no toques el Output Directory.
 
-- Repositorio de código: `https://github.com/Julikondratavicius/new-portfolio`
-- Rama: `main`
-- URL de producción de Sites: <https://julian-kondratavicius-portfolio.julian-kondrataviciu.chatgpt.site>
-- Dominio principal: <https://juliankondratavicius.com>
+## Deploys bloqueados ("Blocked")
 
-Para preparar una versión, ejecutá `npm run build`. El despliegue se completa
-desde el flujo de publicación de Sites; subir cambios a GitHub por sí solo no
-publica una versión nueva en Sites.
+Vercel (plan Hobby) sólo despliega commits cuyo autor es un usuario de GitHub
+que tiene acceso al proyecto. Asocia el autor por el **email del commit**.
 
-## DNS de `juliankondratavicius.com`
+- `julian.kondratavicius@doc24.com.ar` → vinculado al usuario `Julikondratavicius`. ✅
+- `jjkondratavicius@gmail.com` → no está vinculado a ninguna cuenta de GitHub. ❌ Bloqueado.
 
-El dominio principal y `www` están asociados al sitio. En el proveedor que
-administra la zona DNS, configurá estos registros. Los dos registros `A` del
-dominio raíz son necesarios.
+Este repo tiene fijado el email correcto en su config local de git
+(`git config --local user.email`). Si alguna herramienta lo cambia, los deploys
+vuelven a bloquearse. Alternativa permanente: agregar el gmail en
+GitHub → Settings → Emails.
 
-| Tipo | Host | Valor |
-| --- | --- | --- |
-| A | `@` | `162.159.143.30` |
-| A | `@` | `172.66.3.26` |
-| CNAME | `www` | `custom-domains.chatgpt.site` |
+## Dominio
 
-También agregá los cuatro registros de verificación TXT:
+El sitio usa `juliankondratavicius.com` como URL canónica (`content/site.ts`).
+Para servirlo desde Vercel: **Project → Settings → Domains**, agregar el dominio
+y cargar en el DNS los registros que muestre Vercel. No cambies los registros
+de correo (MX, SPF, DKIM o DMARC).
 
-| Tipo | Host | Valor |
-| --- | --- | --- |
-| TXT | `_openai-site-verification` | `openai-site-verification=iM-R1f2Q46OnxHZrsX92yuL1jNENZxCP9HGiKox51ac` |
-| TXT | `_cf-custom-hostname` | `110a4e21-d7a2-45eb-9990-beb82d595e9e` |
-| TXT | `_openai-site-verification.www` | `openai-site-verification=26z4qbY4kDXih_y_6-M1ZZrjGesNaE_onkyaLxgft6w` |
-| TXT | `_cf-custom-hostname.www` | `9b27df6e-b981-4ffc-8918-dddf4e1421a3` |
+## Variables de entorno
 
-No borres los registros `MX`, SPF, DKIM o DMARC: mantienen el correo del
-dominio. Si ya existe un `A`, `AAAA` o `CNAME` para `@` o `www`, reemplazá sólo
-el registro web que entre en conflicto. El estado del dominio y el certificado
-HTTPS se actualizan cuando los registros se propaguen.
-
-## Comprobación
-
-- `https://juliankondratavicius.com` abre el portfolio.
-- `https://www.juliankondratavicius.com` abre el portfolio.
-- `https://juliankondratavicius.com/sitemap.xml` publica el sitemap.
-- `https://juliankondratavicius.com/robots.txt` publica las reglas de rastreo.
-
-La carpeta exportada `out/` incluye las páginas en español e inglés.
+La versión actual del sitio no necesita variables de entorno.
