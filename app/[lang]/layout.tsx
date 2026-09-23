@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { locales, isLocale, htmlLang, type Locale } from "@/lib/i18n";
 import { site } from "@/content/site";
@@ -16,13 +16,20 @@ export function generateStaticParams() {
 
 const meta: Record<Locale, { title: string; description: string }> = {
   es: {
-    title: `${site.name} — ${site.role}`,
-    description: "Diseñador de producto digital y design lead en Rosario, Argentina. Estrategia, experiencia y sistemas para productos que avanzan.",
+    title: `${site.name} — Senior Product Designer & Design Lead`,
+    description: "Senior Product Designer y Design Lead en Rosario, Argentina (remoto). +5 años llevando productos SaaS de healthtech, fintech y movilidad de 0 a 1, con design systems e IA en todo el proceso.",
   },
   en: {
-    title: `${site.name} — ${site.role}`,
-    description: "Digital product designer and design lead in Rosario, Argentina. Strategy, experience and systems for products that move forward.",
+    title: `${site.name} — Senior Product Designer & Design Lead`,
+    description: "Senior Product Designer and Design Lead based in Rosario, Argentina (remote). 5+ years taking healthtech, fintech and mobility SaaS products from 0 to 1, with design systems and AI across the process.",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
 };
 
 export async function generateMetadata({
@@ -43,14 +50,24 @@ export async function generateMetadata({
     description,
     authors: [{ name: site.name, url: site.url }],
     creator: site.name,
-    icons: { icon: "/favicon.svg" },
+    applicationName: site.name,
+    category: "design",
+    icons: {
+      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }, { url: "/favicon-32.png", sizes: "32x32", type: "image/png" }],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    },
     keywords: [
-      "Product Designer",
       "Senior Product Designer",
+      "Lead Product Designer",
+      "Design Lead",
+      "Product Designer Argentina",
+      "Product Designer Rosario",
       "Design Systems",
-      "Product Lead",
+      "AI Product Design",
       "UX Strategy",
-      "UX Research",
+      "SaaS",
+      "HealthTech",
+      "Fintech",
       site.name,
     ],
     alternates: {
@@ -68,11 +85,14 @@ export async function generateMetadata({
       title,
       description,
       locale: htmlLang[locale].replace("-", "_"),
+      alternateLocale: [htmlLang[locale === "es" ? "en" : "es"].replace("-", "_")],
+      images: [{ url: `/og-${locale}.png`, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [`/og-${locale}.png`],
     },
     robots: {
       index: true,
@@ -95,30 +115,43 @@ export default async function RootLayout({
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: site.name,
-    jobTitle: site.role,
-    description: meta[locale].description,
-    email: site.email,
-    url: site.url,
-    sameAs: [site.linkedin],
-    knowsAbout: [
-      "Product Design",
-      "Design Systems",
-      "UX Research",
-      "Product Strategy",
-      "Figma",
-      "AI-driven Design",
-      "SaaS",
-      "HealthTech",
-      "Product Building",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": `${site.url}/#person`,
+        name: site.name,
+        alternateName: "Julian Kondratavicius",
+        jobTitle: "Senior Product Designer & Design Lead",
+        description: meta[locale].description,
+        email: `mailto:${site.email}`,
+        url: `${site.url}/${locale}`,
+        image: `${site.url}/og-${locale}.png`,
+        address: { "@type": "PostalAddress", addressLocality: "Rosario", addressRegion: "Santa Fe", addressCountry: "AR" },
+        nationality: { "@type": "Country", name: "Argentina" },
+        sameAs: [site.linkedin, "https://github.com/Julikondratavicius"],
+        knowsLanguage: ["es", "en"],
+        knowsAbout: [
+          "Product Design", "Product Strategy", "Design Systems", "UX Research", "Product Discovery",
+          "AI-assisted product design", "Prototyping", "SaaS", "HealthTech", "Fintech", "Mobility as a Service",
+          "Figma", "Claude Code", "v0", "Design Leadership",
+        ],
+        hasOccupation: {
+          "@type": "Occupation",
+          name: "Senior Product Designer",
+          occupationLocation: { "@type": "Country", name: "Argentina" },
+          skills: "Product Strategy, Design Systems, UX Research, Prototyping, AI-assisted design, Stakeholder Management, Team Leadership",
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${site.url}/#website`,
+        url: site.url,
+        name: site.name,
+        description: meta[locale].description,
+        inLanguage: ["es-AR", "en-US"],
+        publisher: { "@id": `${site.url}/#person` },
+      },
     ],
-    hasOccupation: {
-      "@type": "Occupation",
-      name: site.role,
-      skills:
-        "Product Strategy, Design Systems, UX Research, Prototyping, Design Thinking, Scrum/Agile, Team Leadership",
-    },
   };
 
   return (

@@ -11,6 +11,7 @@ export const letsbit: Project = {
   industry: { es: "Fintech / Cripto", en: "Fintech / Crypto" },
   year: "2022 — 2023",
   accent: "#A5B4FC",
+  url: "https://lbfinanzas.com/",
 
   role: { es: "UX/UI Designer", en: "UX/UI Designer" },
   team: {

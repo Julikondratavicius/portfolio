@@ -3,7 +3,7 @@ import type { Project } from "@/lib/types";
 /** Proyecto freelance. Completá los TODO con tus datos reales. */
 export const konstrudesch: Project = {
   slug: "konstrudesch",
-  order: 5,
+  order: 6,
   published: true,
 
   name: "Konstrudesch",
@@ -11,6 +11,7 @@ export const konstrudesch: Project = {
   industry: { es: "Construcción / Ingeniería", en: "Construction / Engineering" },
   year: "2026",
   accent: "#F59E0B",
+  url: "https://www.konstrudesch.com.ar/",
 
   role: {
     es: "Product Designer — Diseño y desarrollo",
@@ -35,10 +36,10 @@ export const konstrudesch: Project = {
   },
 
   cover: {
-    src: "/images/projects/konstrudesch-cover.jpg",
+    src: "/images/projects/konstrudesch-web.webp",
     alt: { es: "Sitio de Konstrudesch", en: "Konstrudesch website" },
-    width: 2400,
-    height: 1350,
+    width: 1600,
+    height: 1000,
   },
 
   metrics: [],

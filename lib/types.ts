@@ -64,6 +64,10 @@ export interface Project {
   industry: Localized<string>;
   year: string;
   accent: string;
+  /** Sitio o producto en vivo: se muestra como "Ver proyecto". */
+  url?: string;
+  /** Proyecto propio, no de un cliente. */
+  personal?: boolean;
 
   role: Localized<string>;
   team: Localized<string>;

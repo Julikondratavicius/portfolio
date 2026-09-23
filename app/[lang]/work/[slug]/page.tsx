@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isLocale, locales, type Locale } from "@/lib/i18n";
+import { htmlLang, isLocale, locales, type Locale } from "@/lib/i18n";
 import { href } from "@/lib/href";
 import { getNextProject, getProject, projects } from "@/lib/projects";
 import { isTodo, visible, visibleText } from "@/lib/content";
 import { toneFor } from "@/lib/palette";
+import { site } from "@/content/site";
 import { Vignette } from "@/components/vignettes";
 import { ChapterIndex, ReadingProgress } from "@/components/motion";
 
@@ -13,18 +14,33 @@ export function generateStaticParams() {
   return locales.flatMap((lang) => projects.map((project) => ({ lang, slug: project.slug })));
 }
 
+const caseUrl = (locale: Locale, slug: string) => `${site.url}/${locale}/work/${slug}`;
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }): Promise<Metadata> {
   const { lang, slug } = await params;
   const locale: Locale = isLocale(lang) ? lang : "es";
   const project = getProject(slug);
   if (!project) return {};
-  const title = project.client === project.name ? project.name : `${project.client} — ${project.name}`;
-  return { title, description: project.summary[locale], openGraph: { type: "article", title, description: project.summary[locale] } };
+  const name = project.client === project.name ? project.name : `${project.client} — ${project.name}`;
+  const title = `${name}: ${project.tagline[locale]}`;
+  const description = project.summary[locale];
+  const images = project.cover ? [{ url: project.cover.src, width: project.cover.width, height: project.cover.height, alt: project.cover.alt[locale] }] : undefined;
+  return {
+    title,
+    description,
+    keywords: [...project.tags, project.industry[locale], "case study", "Product Design", site.name],
+    alternates: {
+      canonical: caseUrl(locale, slug),
+      languages: { "es-AR": caseUrl("es", slug), "en-US": caseUrl("en", slug), "x-default": caseUrl("es", slug) },
+    },
+    openGraph: { type: "article", url: caseUrl(locale, slug), title, description, images, siteName: site.name, locale: htmlLang[locale].replace("-", "_") },
+    twitter: { card: "summary_large_image", title, description, images: images?.map((image) => image.url) },
+  };
 }
 
 const words = {
-  es: { back: "Todos los casos", role: "Rol", team: "Equipo", timeline: "Duración", platforms: "Plataformas", tldr: "En 30 segundos", challenge: "El desafío", did: "Qué hice", focus: "Foco", index: "Índice del caso", decision: "Decisión", learnings: "Lo que me llevo", next: "Siguiente caso", process: "Proceso", ai: "IA", impact: "Impacto", decisions: "Decisiones" },
-  en: { back: "All cases", role: "Role", team: "Team", timeline: "Timeline", platforms: "Platforms", tldr: "In 30 seconds", challenge: "The challenge", did: "What I did", focus: "Focus", index: "Case index", decision: "Decision", learnings: "What I took away", next: "Next case", process: "Process", ai: "AI", impact: "Impact", decisions: "Decisions" },
+  es: { back: "Todos los casos", role: "Rol", team: "Equipo", timeline: "Duración", platforms: "Plataformas", tldr: "En 30 segundos", challenge: "El desafío", did: "Qué hice", focus: "Foco", index: "Índice del caso", decision: "Decisión", learnings: "Lo que me llevo", next: "Siguiente caso", ai: "IA en el proceso", impact: "Impacto", decisions: "Decisiones", view: "Ver proyecto", personal: "Proyecto personal", more: "Más casos", home: "Inicio", work: "Trabajo" },
+  en: { back: "All cases", role: "Role", team: "Team", timeline: "Timeline", platforms: "Platforms", tldr: "In 30 seconds", challenge: "The challenge", did: "What I did", focus: "Focus", index: "Case index", decision: "Decision", learnings: "What I took away", next: "Next case", ai: "AI in the process", impact: "Impact", decisions: "Decisions", view: "View project", personal: "Personal project", more: "More cases", home: "Home", work: "Work" },
 } as const;
 
 export default async function CaseStudyPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
@@ -37,6 +53,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
   const tone = toneFor(project.slug);
   const next = getNextProject(project.slug);
   const nextTone = next ? toneFor(next.slug) : tone;
+  const others = projects.filter((p) => p.slug !== project.slug && p.slug !== next?.slug);
 
   const meta = [
     [w.role, project.role[locale]],
@@ -57,26 +74,65 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
   const learnings = visible(project.learnings[locale]);
 
   const index = [
-    ...chapters.map((chapter) => ({ id: chapter.id, label: chapter.eyebrow[locale], title: chapter.title[locale] })),
-    ...(decisions.length ? [{ id: "decisions", label: w.decisions, title: decisions[0].title[locale] }] : []),
-    ...(project.ai ? [{ id: "ai", label: w.ai, title: project.ai.title[locale] }] : []),
-    ...(learnings.length ? [{ id: "learnings", label: w.learnings, title: learnings[0] }] : []),
+    ...chapters.map((chapter) => ({ id: chapter.id, label: chapter.eyebrow[locale] })),
+    ...(decisions.length ? [{ id: "decisions", label: w.decisions }] : []),
+    ...(project.ai ? [{ id: "ai", label: w.ai }] : []),
+    ...(learnings.length ? [{ id: "learnings", label: w.learnings }] : []),
+  ];
+  const number = (id: string) => String(index.findIndex((item) => item.id === id) + 1).padStart(2, "0");
+
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "@id": `${caseUrl(locale, project.slug)}#case`,
+      name: `${project.name} — ${project.tagline[locale]}`,
+      headline: project.tagline[locale],
+      description: project.summary[locale],
+      url: caseUrl(locale, project.slug),
+      inLanguage: htmlLang[locale],
+      genre: "Case study",
+      keywords: project.tags.join(", "),
+      about: project.industry[locale],
+      image: project.cover ? `${site.url}${project.cover.src}` : undefined,
+      author: { "@id": `${site.url}/#person` },
+      creator: { "@id": `${site.url}/#person` },
+      ...(project.url ? { mainEntityOfPage: caseUrl(locale, project.slug), sameAs: project.url } : {}),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: w.home, item: `${site.url}/${locale}` },
+        { "@type": "ListItem", position: 2, name: w.work, item: `${site.url}/${locale}#work` },
+        { "@type": "ListItem", position: 3, name: project.name, item: caseUrl(locale, project.slug) },
+      ],
+    },
   ];
 
   return (
     <main className="case" style={{ ["--bg" as string]: tone.bg, ["--fg" as string]: tone.fg, ["--accent" as string]: tone.accent }}>
       <ReadingProgress />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <section className="case-hero">
         <div className="case-hero-copy">
-          <Link href={`${href("/", locale)}#work`} className="case-back">← {w.back}</Link>
-          <p className="label case-kicker">{project.client} · {project.industry[locale]} · {project.year}</p>
+          <nav aria-label="Breadcrumb"><Link href={`${href("/", locale)}#work`} className="case-back">← {w.back}</Link></nav>
+          <p className="label case-kicker">
+            {project.personal && <span className="case-badge">{w.personal}</span>}
+            {project.client} · {project.industry[locale]} · {project.year}
+          </p>
           <h1 className="case-title">
             {project.tagline[locale].split(" ").map((word, i) => (
               <span className="word" key={i}><span style={{ ["--d" as string]: `${0.05 + i * 0.04}s` }}>{word}&nbsp;</span></span>
             ))}
           </h1>
           <p className="case-lede" data-reveal>{project.headline[locale]}</p>
+          {project.url && (
+            <a className="case-cta" href={project.url} target="_blank" rel="noopener" data-reveal>
+              {w.view} <span aria-hidden="true">↗</span>
+            </a>
+          )}
         </div>
         <div className="case-hero-media" data-reveal><Vignette slug={project.slug} locale={locale} size="hero" /></div>
       </section>
@@ -104,27 +160,12 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
         </section>
       )}
 
-      <section className="process" aria-label={w.process}>
-        <p className="label">{w.process}</p>
-        <ol className="process-steps">
-          {index.map((step, i) => (
-            <li key={step.id} className={step.id === "ai" ? "process-ai" : undefined} data-reveal style={{ ["--d" as string]: `${i * 0.06}s` }}>
-              <a href={`#${step.id}`}>
-                <span className="process-n">{String(i + 1).padStart(2, "0")}</span>
-                <strong>{step.label}</strong>
-                <span className="process-title">{step.title}</span>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </section>
-
       <div className="case-body">
         <ChapterIndex items={index} label={w.index} />
         <article className="case-article">
-          {chapters.map((chapter, i) => (
+          {chapters.map((chapter) => (
             <section className="chapter" id={chapter.id} key={chapter.id}>
-              <p className="label chapter-label" data-reveal><span>{String(i + 1).padStart(2, "0")}</span>{chapter.eyebrow[locale]}</p>
+              <p className="label chapter-label" data-reveal><span>{number(chapter.id)}</span>{chapter.eyebrow[locale]}</p>
               <h2 data-reveal>{chapter.title[locale]}</h2>
               {chapter.paragraphs.map((paragraph, j) => <p key={j} data-reveal>{paragraph}</p>)}
               {chapter.items.length > 0 && (
@@ -140,7 +181,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
 
           {decisions.length > 0 && (
             <section className="chapter" id="decisions">
-              <p className="label chapter-label" data-reveal><span>{String(chapters.length + 1).padStart(2, "0")}</span>{w.decisions}</p>
+              <p className="label chapter-label" data-reveal><span>{number("decisions")}</span>{w.decisions}</p>
               <div className="decisions">
                 {decisions.map((d, i) => (
                   <article className="decision" key={i} data-reveal>
@@ -155,17 +196,17 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
           )}
 
           {project.ai && (
-            <section className="chapter ai-case" id="ai">
-              <p className="label chapter-label" data-reveal><span>{String(index.findIndex((item) => item.id === "ai") + 1).padStart(2, "0")}</span>{w.ai}</p>
+            <section className="chapter" id="ai">
+              <p className="label chapter-label" data-reveal><span>{number("ai")}</span>{w.ai}</p>
               <h2 data-reveal>{project.ai.title[locale]}</h2>
               <p data-reveal>{project.ai.body[locale]}</p>
-              <ul className="ai-tools" data-reveal>{project.ai.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul>
+              <ul className="chips chapter-chips" data-reveal>{project.ai.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul>
             </section>
           )}
 
           {learnings.length > 0 && (
             <section className="chapter" id="learnings">
-              <p className="label chapter-label" data-reveal><span>{String(index.findIndex((item) => item.id === "learnings") + 1).padStart(2, "0")}</span>{w.learnings}</p>
+              <p className="label chapter-label" data-reveal><span>{number("learnings")}</span>{w.learnings}</p>
               <ol className="learnings">
                 {learnings.map((item) => <li key={item} data-reveal>{item}</li>)}
               </ol>
@@ -173,6 +214,24 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
           )}
         </article>
       </div>
+
+      {others.length > 0 && (
+        <nav className="more-cases" aria-label={w.more}>
+          <p className="label">{w.more}</p>
+          <ul>
+            {others.map((p) => (
+              <li key={p.slug}>
+                <Link href={href(`/work/${p.slug}`, locale)} style={{ ["--dot" as string]: toneFor(p.slug).accent }}>
+                  <span className="more-dot" aria-hidden="true" />
+                  <strong>{p.client}</strong>
+                  <span>{p.tagline[locale]}</span>
+                  <span className="more-arrow" aria-hidden="true">→</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
 
       {next && (
         <Link

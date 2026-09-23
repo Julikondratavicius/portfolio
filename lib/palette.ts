@@ -9,6 +9,8 @@ export const palette: Record<string, { bg: string; fg: string; accent: string }>
   letsbit: { bg: "#522398", fg: "#fbfaff", accent: "#f4e9fe" },
   // Ualabee: azul + celeste
   ualabee: { bg: "#1b6afe", fg: "#ffffff", accent: "#e2ecff" },
+  // Blox: casi negro + menta
+  blox: { bg: "#0c0e0b", fg: "#f5f5f5", accent: "#5ae493" },
   // Rosario Fitness Games: navy + azul eléctrico
   "rosario-fitness-games": { bg: "#0a1a38", fg: "#f7fbff", accent: "#2c92f1" },
   // Konstrudesch: navy + naranja

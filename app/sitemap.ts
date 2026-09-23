@@ -17,7 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${site.url}/${lang}${path}`,
         lastModified: now,
         changeFrequency: "monthly",
-        priority: path === "" ? 1 : 0.8,
+        priority: 1,
+        images: [`${site.url}/og-${lang}.png`],
         alternates: {
           languages: Object.fromEntries(
             locales.map((l) => [l, `${site.url}/${l}${path}`]),
@@ -30,8 +31,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({
         url: `${site.url}/${lang}/work/${project.slug}`,
         lastModified: now,
-        changeFrequency: "yearly",
-        priority: 0.7,
+        changeFrequency: "monthly",
+        priority: 0.8,
+        images: project.cover ? [`${site.url}${project.cover.src}`] : undefined,
         alternates: {
           languages: Object.fromEntries(
             locales.map((l) => [l, `${site.url}/${l}/work/${project.slug}`]),

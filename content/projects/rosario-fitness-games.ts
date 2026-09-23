@@ -3,7 +3,7 @@ import type { Project } from "@/lib/types";
 /** Proyecto freelance. Completá los TODO con tus datos reales. */
 export const rosarioFitnessGames: Project = {
   slug: "rosario-fitness-games",
-  order: 4,
+  order: 5,
   published: true,
 
   name: "Rosario Fitness Games",
@@ -11,6 +11,7 @@ export const rosarioFitnessGames: Project = {
   industry: { es: "Deporte / Eventos", en: "Sports / Events" },
   year: "2026",
   accent: "#3B8BFF",
+  url: "https://www.rosariofitnessgames.com/",
 
   role: {
     es: "Product Designer — Diseño y desarrollo",
@@ -35,10 +36,10 @@ export const rosarioFitnessGames: Project = {
   },
 
   cover: {
-    src: "/images/projects/rosario-fitness-games-cover.jpg",
+    src: "/images/projects/rfg-web.webp",
     alt: { es: "Sitio de Rosario Fitness Games", en: "Rosario Fitness Games website" },
-    width: 2400,
-    height: 1350,
+    width: 1600,
+    height: 1000,
   },
 
   metrics: [

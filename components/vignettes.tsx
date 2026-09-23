@@ -12,9 +12,10 @@ export function Vignette({ slug, locale, size = "card" }: { slug: string; locale
     "doc24-wehealthy": <Wellness es={es} />,
     letsbit: <Crypto es={es} />,
     ualabee: <Transit es={es} />,
-    braintly: <Cms es={es} />,
-    "rosario-fitness-games": <Leaderboard es={es} />,
-    konstrudesch: <Builder es={es} />,
+    braintly: <Site src="/images/projects/braintly-web.webp" domain="braintly.com" alt="Braintly" chips={[es ? "Sitio en Webflow" : "Webflow site", es ? "Editable por el cliente" : "Client-editable"]} />,
+    "rosario-fitness-games": <Site src="/images/projects/rfg-web.webp" domain="rosariofitnessgames.com" alt="Rosario Fitness Games" chips={[`380 ${es ? "atletas" : "athletes"} · 6 workouts`, es ? "Leaderboard por categoría" : "Leaderboard by category"]} />,
+    konstrudesch: <Site src="/images/projects/konstrudesch-web.webp" domain="konstrudesch.com.ar" alt="Konstrudesch" chips={["ES / EN", es ? "Obras en 8 provincias" : "Works in 8 provinces"]} />,
+    blox: <Site src="/images/projects/blox-web.webp" domain="getblox.io" alt="Blox" chips={["SaaS 0→1", es ? "Construido con IA" : "Built with AI"]} />,
   }[slug];
   if (!body) return null;
   return (
@@ -92,64 +93,17 @@ function Transit({ es }: { es: boolean }) {
   );
 }
 
-function Cms({ es }: { es: boolean }) {
+/** Captura real del sitio, enmarcada en un navegador. */
+function Site({ src, domain, alt, chips }: { src: string; domain: string; alt: string; chips: string[] }) {
   return (
     <>
-      <div className="browser">
-        <div className="browser-bar"><i /><i /><i /><span>braintly.com</span></div>
-        <div className="browser-body">
-          <aside>
-            <p className="ui-muted">{es ? "Páginas" : "Pages"}</p>
-            {["Home", es ? "Servicios" : "Services", "Cases", "Blog", es ? "Contacto" : "Contact"].map((p, i) => <div key={p} className={i === 1 ? "on" : ""}>{p}</div>)}
-          </aside>
-          <div className="canvas">
-            <div className="blk blk-hero"><span /><span /><span className="blk-btn" /></div>
-            <div className="blk-row"><div className="blk" /><div className="blk" /><div className="blk" /></div>
-            <div className="blk blk-wide" />
-          </div>
-        </div>
-      </div>
-      <div className="float-chip chip-a"><span className="toggle" />{es ? "Publicado por el cliente" : "Published by the client"}</div>
-      <div className="float-chip chip-b">Webflow CMS · {es ? "sin depender de dev" : "no dev needed"}</div>
-    </>
-  );
-}
-
-function Leaderboard({ es }: { es: boolean }) {
-  const rows = [["1", "MR", "486"], ["2", "LG", "471"], ["3", "SP", "455"], ["4", "TC", "440"], ["5", "AV", "432"]];
-  return (
-    <>
-      <Phone className="phone-dark phone-rfg">
-        <div className="ui-top"><span className="rfg-logo">RFG<small>2026</small></span><span className="ui-muted">≡</span></div>
-        <p className="ui-title">Leaderboard</p>
-        <div className="rfg-tabs"><span className="on">RX</span><span>Scaled</span><span>Masters</span></div>
-        <div className="rfg-rows">
-          {rows.map(([pos, name, pts]) => (
-            <div key={pos} className="rfg-row"><span className="rfg-pos">{pos}</span><span className="rfg-av">{name}</span><span className="rfg-bar"><i /></span><strong>{pts}</strong></div>
-          ))}
-        </div>
-        <div className="ui-button rfg-cta">{es ? "Ver workouts" : "See workouts"}</div>
-      </Phone>
-      <div className="float-chip chip-a">🏋️ 380 {es ? "atletas" : "athletes"} · 6 workouts</div>
-      <div className="float-chip chip-b"><span className="ui-dot" />{es ? "Sumate como sponsor" : "Become a sponsor"}</div>
-    </>
-  );
-}
-
-function Builder({ es }: { es: boolean }) {
-  return (
-    <>
-      <div className="browser browser-dark">
-        <div className="browser-bar"><i /><i /><i /><span>konstrudesch.com.ar</span></div>
-        <div className="kd-body">
-          <div className="kd-nav"><b>K<em>DESCH</em></b><span /><span /><span className="kd-btn" /></div>
-          <p className="kd-title">{es ? "Construimos" : "Building"}<br />{es ? "el " : "the "}<em>{es ? "futuro" : "future"}</em><br />{es ? "hoy" : "today"}</p>
-          <span className="kd-big">20+</span>
-          <div className="kd-cards">{[0, 1, 2].map((i) => <div key={i} className="kd-card"><i /><span /></div>)}</div>
-        </div>
-      </div>
-      <div className="float-chip chip-a">ES / EN</div>
-      <div className="float-chip chip-b">🏗️ {es ? "Obras en 8 provincias" : "Works in 8 provinces"}</div>
+      <figure className="browser browser-shot">
+        <div className="browser-bar"><i /><i /><i /><span>{domain}</span></div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} width={1600} height={1000} alt={alt} loading="lazy" decoding="async" />
+      </figure>
+      <div className="float-chip chip-a">{chips[0]}</div>
+      {chips[1] && <div className="float-chip chip-b">{chips[1]}</div>}
     </>
   );
 }

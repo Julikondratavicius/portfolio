@@ -5,13 +5,14 @@ import { ualabee } from "@/content/projects/ualabee";
 import { braintly } from "@/content/projects/braintly";
 import { rosarioFitnessGames } from "@/content/projects/rosario-fitness-games";
 import { konstrudesch } from "@/content/projects/konstrudesch";
+import { blox } from "@/content/projects/blox";
 
 /**
  * Registro de proyectos.
  * Para sumar uno nuevo: creá el archivo en content/projects/ (copiá doc24.ts
  * como plantilla), importalo acá y agregalo al array. Nada más.
  */
-const all: Project[] = [doc24, letsbit, ualabee, rosarioFitnessGames, konstrudesch, braintly];
+const all: Project[] = [doc24, letsbit, ualabee, blox, rosarioFitnessGames, konstrudesch, braintly];
 
 /** Sólo los publicados, ordenados. */
 export const projects: Project[] = all

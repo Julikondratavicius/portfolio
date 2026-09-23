@@ -3,7 +3,7 @@ import type { Project } from "@/lib/types";
 /** Completá los TODO con tus datos reales antes de publicar. */
 export const braintly: Project = {
   slug: "braintly",
-  order: 6,
+  order: 7,
   published: true,
 
   name: "Braintly",
@@ -11,6 +11,7 @@ export const braintly: Project = {
   industry: { es: "Software / Tech", en: "Software / Tech" },
   year: "2022",
   accent: "#F9A8D4",
+  url: "https://www.braintly.com/",
 
   role: {
     es: "Web Designer — Webflow Developer",
@@ -38,10 +39,10 @@ export const braintly: Project = {
   },
 
   cover: {
-    src: "/images/projects/braintly-cover.jpg",
+    src: "/images/projects/braintly-web.webp",
     alt: { es: "Sitio web de Braintly", en: "Braintly website" },
-    width: 2400,
-    height: 1350,
+    width: 1600,
+    height: 1000,
   },
 
   metrics: [

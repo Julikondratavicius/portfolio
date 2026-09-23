@@ -21,6 +21,7 @@ export const doc24: Project = {
   industry: { es: "Healthtech", en: "Healthtech" },
   year: "2023 — Actualidad",
   accent: "#6EE7B7",
+  url: "https://doc24.com.ar/bienestar-inteligente-wehealthy/",
 
   role: {
     es: "Senior Product Designer",

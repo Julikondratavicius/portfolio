@@ -11,6 +11,7 @@ export const ualabee: Project = {
   industry: { es: "MaaS / Movilidad", en: "MaaS / Mobility" },
   year: "2021 — 2022",
   accent: "#FCD34D",
+  url: "https://ualabee.com/",
 
   role: { es: "UX/UI Designer", en: "UX/UI Designer" },
   team: {

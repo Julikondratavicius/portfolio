@@ -5,7 +5,7 @@ export const site = {
   role: "Senior Product Designer & Design Lead",
   email: "jjkondratavicius@gmail.com",
   linkedin: "https://www.linkedin.com/in/juli%C3%A1n-kondratavicius-8163b1189/",
-  url: "https://jkondratavicius.com",
+  url: "https://www.jkondratavicius.com",
   location: { es: "Rosario, Argentina", en: "Rosario, Argentina" },
   /** Poné acá el archivo cuando lo subas a /public/cv/. */
   cv: {
@@ -108,6 +108,23 @@ export const experience: Job[] = [
         "Designed end-to-end wellness flows based on self-perception questionnaires and real user data.",
         "Cross-functional work across business, engineering and product under Scrum, with cofounders, Product Owners and functional analysts.",
         "Contributed to strategic product definition with systems thinking, scalability vision and a metrics-driven approach.",
+      ],
+    },
+  },
+  {
+    company: { es: "Blox", en: "Blox" },
+    type: { es: "Proyecto personal · SaaS", en: "Personal project · SaaS" },
+    title: {
+      es: "Founder — Product Designer & Builder",
+      en: "Founder — Product Designer & Builder",
+    },
+    period: "2026 — Actualidad",
+    points: {
+      es: [
+        "Plataforma para entrenadores y clubes deportivos, de la entrevista con usuarios al producto en producción, construida con IA.",
+      ],
+      en: [
+        "A platform for coaches and sports clubs, from user interviews to a product in production, built with AI.",
       ],
     },
   },
