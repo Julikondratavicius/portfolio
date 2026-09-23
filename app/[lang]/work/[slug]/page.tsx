@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 }
 
 const words = {
-  es: { back: "Todos los casos", role: "Rol", team: "Equipo", timeline: "Duración", platforms: "Plataformas", tldr: "En 30 segundos", challenge: "El desafío", did: "Qué hice", focus: "Foco", index: "Índice del caso", decision: "Decisión", options: "Opciones sobre la mesa", chose: "Qué elegí", why: "Por qué", tradeoff: "Qué resigné", learnings: "Lo que me llevo", next: "Siguiente caso", nda: "Las pantallas reales están bajo NDA: las visuales son recreaciones. Puedo mostrar el trabajo completo en una entrevista.", impact: "Impacto", decisions: "Decisiones" },
-  en: { back: "All cases", role: "Role", team: "Team", timeline: "Timeline", platforms: "Platforms", tldr: "In 30 seconds", challenge: "The challenge", did: "What I did", focus: "Focus", index: "Case index", decision: "Decision", options: "Options on the table", chose: "What I chose", why: "Why", tradeoff: "Trade-off", learnings: "What I took away", next: "Next case", nda: "Real screens are under NDA: visuals are recreations. Happy to walk through the full work in an interview.", impact: "Impact", decisions: "Decisions" },
+  es: { back: "Todos los casos", role: "Rol", team: "Equipo", timeline: "Duración", platforms: "Plataformas", tldr: "En 30 segundos", challenge: "El desafío", did: "Qué hice", focus: "Foco", index: "Índice del caso", decision: "Decisión", options: "Opciones sobre la mesa", chose: "Qué elegí", why: "Por qué", tradeoff: "Qué resigné", learnings: "Lo que me llevo", next: "Siguiente caso", process: "Proceso", impact: "Impacto", decisions: "Decisiones" },
+  en: { back: "All cases", role: "Role", team: "Team", timeline: "Timeline", platforms: "Platforms", tldr: "In 30 seconds", challenge: "The challenge", did: "What I did", focus: "Focus", index: "Case index", decision: "Decision", options: "Options on the table", chose: "What I chose", why: "Why", tradeoff: "Trade-off", learnings: "What I took away", next: "Next case", process: "Process", impact: "Impact", decisions: "Decisions" },
 } as const;
 
 /** La opción que más palabras comparte con lo que se eligió. */
@@ -66,9 +66,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
   const learnings = visible(project.learnings[locale]);
 
   const index = [
-    ...chapters.map((chapter) => ({ id: chapter.id, label: chapter.eyebrow[locale] })),
-    ...(decisions.length ? [{ id: "decisions", label: w.decisions }] : []),
-    ...(learnings.length ? [{ id: "learnings", label: w.learnings }] : []),
+    ...chapters.map((chapter) => ({ id: chapter.id, label: chapter.eyebrow[locale], title: chapter.title[locale] })),
+    ...(decisions.length ? [{ id: "decisions", label: w.decisions, title: decisions[0].title[locale] }] : []),
+    ...(learnings.length ? [{ id: "learnings", label: w.learnings, title: learnings[0] }] : []),
   ];
 
   return (
@@ -102,7 +102,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
           <div><span>{w.did}</span><p>{project.summary[locale]}</p></div>
           <div><span>{w.focus}</span><ul className="chips">{project.tags.map((t) => <li key={t}>{t}</li>)}</ul></div>
         </div>
-        {project.nda && <p className="nda">🔒 {w.nda}</p>}
       </section>
 
       {metrics.length > 0 && (
@@ -112,6 +111,21 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
           ))}
         </section>
       )}
+
+      <section className="process" aria-label={w.process}>
+        <p className="label">{w.process}</p>
+        <ol className="process-steps">
+          {index.map((step, i) => (
+            <li key={step.id} data-reveal style={{ ["--d" as string]: `${i * 0.06}s` }}>
+              <a href={`#${step.id}`}>
+                <span className="process-n">{String(i + 1).padStart(2, "0")}</span>
+                <strong>{step.label}</strong>
+                <span className="process-title">{step.title}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
 
       <div className="case-body">
         <ChapterIndex items={index} label={w.index} />

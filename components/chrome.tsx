@@ -9,8 +9,8 @@ import { site } from "@/content/site";
 import { Magnetic } from "./motion";
 
 const copy = {
-  es: { work: "Trabajo", approach: "Enfoque", experience: "Experiencia", contact: "Hablemos", open: "Disponible para roles Senior / Lead" },
-  en: { work: "Work", approach: "Approach", experience: "Experience", contact: "Let’s talk", open: "Open to Senior / Lead roles" },
+  es: { work: "Trabajo", approach: "Enfoque", experience: "Experiencia", contact: "Hablemos", },
+  en: { work: "Work", approach: "Approach", experience: "Experience", contact: "Let’s talk", },
 } as const;
 
 export function Header({ locale }: { locale: Locale }) {
@@ -52,13 +52,12 @@ export function Header({ locale }: { locale: Locale }) {
 }
 
 export function FloatingCta({ locale }: { locale: Locale }) {
-  const c = copy[locale];
   return (
-    <Magnetic className="floating-cta-wrap" strength={0.2}>
+    <Magnetic className="floating-cta-wrap" strength={0.45}>
       <a className="floating-cta" href={`mailto:${site.email}`}>
         <span className="pulse" aria-hidden="true" />
-        <span className="floating-cta-open">{c.open}</span>
-        <span className="floating-cta-go">{c.contact} <span aria-hidden="true">↗</span></span>
+        {copy[locale].contact}
+        <span className="floating-cta-arrow" aria-hidden="true">↗</span>
       </a>
     </Magnetic>
   );

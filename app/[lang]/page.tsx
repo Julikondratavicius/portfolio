@@ -32,7 +32,6 @@ const words = {
     contactTitle: ["¿Construimos algo", "que escale?"],
     copy: "Copiar email", copied: "¡Copiado!",
     write: "Escribime",
-    rights: "Diseñado y desarrollado por Julián",
   },
   en: {
     eyebrow: "Senior Product Designer & Design Lead",
@@ -57,7 +56,6 @@ const words = {
     contactTitle: ["Shall we build", "something that scales?"],
     copy: "Copy email", copied: "Copied!",
     write: "Email me",
-    rights: "Designed and built by Julián",
   },
 } as const;
 
@@ -188,7 +186,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
         <div className="contact-foot">
           <span>© {new Date().getFullYear()} {site.name}</span>
-          <span>{c.rights}</span>
           <a href="#top" className="link-underline">↑ Top</a>
         </div>
       </footer>

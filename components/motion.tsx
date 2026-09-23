@@ -70,7 +70,7 @@ export function Cursor() {
       const target = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-cursor], a, button");
       const text = target?.dataset.cursor ?? "";
       setLabel(text);
-      el.dataset.state = text ? "label" : target ? "link" : "";
+      el.dataset.state = text ? "label" : target?.closest(".site-header") ? "nav" : target ? "link" : "";
       el.style.opacity = "1";
     };
     const leave = () => { el.style.opacity = "0"; };

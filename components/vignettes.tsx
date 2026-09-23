@@ -18,9 +18,8 @@ export function Vignette({ slug, locale, size = "card" }: { slug: string; locale
   }[slug];
   if (!body) return null;
   return (
-    <div className={`vignette vignette-${slug} vignette-${size}`} aria-hidden="true">
+    <div className={`vignette vignette-${slug} vignette-${size}`}>
       {body}
-      <span className="vignette-note">{es ? "Recreación ilustrativa" : "Illustrative recreation"}</span>
     </div>
   );
 }
@@ -37,15 +36,8 @@ function Phone({ children, className = "" }: { children: React.ReactNode; classN
 function Wellness({ es }: { es: boolean }) {
   return (
     <>
-      <Phone>
-        <div className="ui-top"><span className="ui-avatar">AM</span><span className="ui-muted">{es ? "Hola, Ana" : "Hi, Ana"}</span></div>
-        <p className="ui-title">{es ? "Tu bienestar" : "Your wellbeing"}</p>
-        <div className="score-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" className="ring-track" /><circle cx="60" cy="60" r="50" className="ring-fill" /></svg><span>72<small>/100</small></span></div>
-        <div className="steps">{[0, 1, 2, 3, 4].map((i) => <i key={i} className={i < 3 ? "done" : i === 3 ? "now" : ""} />)}</div>
-        <p className="ui-muted ui-center">{es ? "Paso 4 de 5 · Descanso" : "Step 4 of 5 · Rest"}</p>
-        <div className="ui-card ui-pop"><span className="ui-dot" />{es ? "Resultado parcial listo" : "Partial result ready"}</div>
-        <div className="ui-button">{es ? "Continuar" : "Continue"}</div>
-      </Phone>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="shot" src="/images/projects/wehealthy-home.png" width={412} height={833} alt={es ? "Home de la app Wehealthy" : "Wehealthy app home"} loading="lazy" />
       <div className="float-chip chip-a"><span className="swatches"><i /><i /><i /><i /></span>tokens / color</div>
       <div className="float-chip chip-b"><span className="btn-states"><i /><i /><i /></span>Button · 7 {es ? "estados" : "states"}</div>
       <div className="float-chip chip-c">🔒 {es ? "Tu empresa sólo ve datos agregados" : "Your company only sees aggregates"}</div>
