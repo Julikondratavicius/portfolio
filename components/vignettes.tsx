@@ -13,6 +13,8 @@ export function Vignette({ slug, locale, size = "card" }: { slug: string; locale
     letsbit: <Crypto es={es} />,
     ualabee: <Transit es={es} />,
     braintly: <Cms es={es} />,
+    "rosario-fitness-games": <Leaderboard es={es} />,
+    konstrudesch: <Builder es={es} />,
   }[slug];
   if (!body) return null;
   return (
@@ -117,6 +119,45 @@ function Cms({ es }: { es: boolean }) {
       </div>
       <div className="float-chip chip-a"><span className="toggle" />{es ? "Publicado por el cliente" : "Published by the client"}</div>
       <div className="float-chip chip-b">Webflow CMS · {es ? "sin depender de dev" : "no dev needed"}</div>
+    </>
+  );
+}
+
+function Leaderboard({ es }: { es: boolean }) {
+  const rows = [["1", "MR", "486"], ["2", "LG", "471"], ["3", "SP", "455"], ["4", "TC", "440"], ["5", "AV", "432"]];
+  return (
+    <>
+      <Phone className="phone-dark phone-rfg">
+        <div className="ui-top"><span className="rfg-logo">RFG<small>2026</small></span><span className="ui-muted">≡</span></div>
+        <p className="ui-title">Leaderboard</p>
+        <div className="rfg-tabs"><span className="on">RX</span><span>Scaled</span><span>Masters</span></div>
+        <div className="rfg-rows">
+          {rows.map(([pos, name, pts]) => (
+            <div key={pos} className="rfg-row"><span className="rfg-pos">{pos}</span><span className="rfg-av">{name}</span><span className="rfg-bar"><i /></span><strong>{pts}</strong></div>
+          ))}
+        </div>
+        <div className="ui-button rfg-cta">{es ? "Ver workouts" : "See workouts"}</div>
+      </Phone>
+      <div className="float-chip chip-a">🏋️ 380 {es ? "atletas" : "athletes"} · 6 workouts</div>
+      <div className="float-chip chip-b"><span className="ui-dot" />{es ? "Sumate como sponsor" : "Become a sponsor"}</div>
+    </>
+  );
+}
+
+function Builder({ es }: { es: boolean }) {
+  return (
+    <>
+      <div className="browser browser-dark">
+        <div className="browser-bar"><i /><i /><i /><span>konstrudesch.com.ar</span></div>
+        <div className="kd-body">
+          <div className="kd-nav"><b>K<em>DESCH</em></b><span /><span /><span className="kd-btn" /></div>
+          <p className="kd-title">{es ? "Construimos" : "Building"}<br />{es ? "el " : "the "}<em>{es ? "futuro" : "future"}</em><br />{es ? "hoy" : "today"}</p>
+          <span className="kd-big">20+</span>
+          <div className="kd-cards">{[0, 1, 2].map((i) => <div key={i} className="kd-card"><i /><span /></div>)}</div>
+        </div>
+      </div>
+      <div className="float-chip chip-a">ES / EN</div>
+      <div className="float-chip chip-b">🏗️ {es ? "Obras en 8 provincias" : "Works in 8 provinces"}</div>
     </>
   );
 }

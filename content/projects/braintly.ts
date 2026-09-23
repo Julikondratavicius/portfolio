@@ -3,7 +3,7 @@ import type { Project } from "@/lib/types";
 /** Completá los TODO con tus datos reales antes de publicar. */
 export const braintly: Project = {
   slug: "braintly",
-  order: 4,
+  order: 6,
   published: true,
 
   name: "Braintly",
@@ -22,7 +22,7 @@ export const braintly: Project = {
   },
   timeline: { es: "TODO: ej. 6 semanas", en: "TODO: e.g. 6 weeks" },
   platforms: { es: "Web · Webflow", en: "Web · Webflow" },
-  tags: ["Webflow", "Web Design", "No-Code", "Brand"],
+  tags: ["Webflow", "B2B", "No-Code", "Information Architecture"],
 
   tagline: {
     es: "Un sitio que el cliente actualiza solo",
@@ -33,8 +33,8 @@ export const braintly: Project = {
     en: "A company with twelve years of history that needed to tell a new business model without depending on anyone to update it.",
   },
   summary: {
-    es: "Sitio en Webflow para una empresa de software con +12 años en el mercado: mayor autonomía en la gestión web y una presentación clara de su nuevo modelo de negocios.",
-    en: "Webflow site for a software company with 12+ years in the market: greater autonomy in web management and a clear presentation of their new business model.",
+    es: "Empresa de software que arma equipos y squads de desarrollo para startups de todo el mundo. Diseñé su sitio en Webflow para contar un modelo de negocio nuevo y que el equipo lo actualice sin depender de desarrollo.",
+    en: "A software company that builds development teams and squads for startups worldwide. I designed their Webflow site to tell a new business model and let the team update it without depending on engineering.",
   },
 
   cover: {

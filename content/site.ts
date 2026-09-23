@@ -148,20 +148,22 @@ export const experience: Job[] = [
     },
   },
   {
-    company: { es: "Independiente", en: "Independent" },
-    type: { es: "Freelance", en: "Freelance" },
+    company: { es: "Freelance", en: "Freelance" },
+    type: { es: "Multi-industria", en: "Multi-industry" },
     title: {
-      es: "UX/UI Designer — Webflow Designer",
-      en: "UX/UI Designer — Webflow Designer",
+      es: "Product Designer — Diseño y desarrollo web",
+      en: "Product Designer — Web design & development",
     },
-    period: "2020 — 2023",
+    period: "2020 — Actualidad",
     points: {
       es: [
+        "Productos y sitios de punta a punta para clientes propios: Rosario Fitness Games, Konstrudesch y Braintly, entre otros.",
         "Gestión de negocio freelance, estrategias de marca personal y desarrollo de relaciones con clientes.",
         "Creación de sitios web variados: portfolios, e-commerce y sitios corporativos.",
         "Comunicación transparente de propuestas de diseño y procesos de decisión.",
       ],
       en: [
+        "End-to-end products and websites for my own clients: Rosario Fitness Games, Konstrudesch and Braintly, among others.",
         "Freelance business management, personal branding strategies and client relationship development.",
         "Diverse website creation: portfolios, e-commerce and corporate sites.",
         "Transparent communication of design proposals and decision-making processes.",

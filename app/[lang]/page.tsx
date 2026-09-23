@@ -19,7 +19,7 @@ const words = {
     view: "Ver caso",
     numbers: [
       { n: 5, prefix: "+", label: "años diseñando producto" },
-      { n: 4, label: "industrias: salud, finanzas, movilidad, software" },
+      { n: 6, label: "industrias: salud, finanzas, movilidad, software, deporte y construcción" },
       { n: 3, label: "plataformas: web, iOS y Android" },
       { n: 1, label: "design system construido desde cero" },
     ],
@@ -44,7 +44,7 @@ const words = {
     view: "View case",
     numbers: [
       { n: 5, prefix: "+", label: "years designing products" },
-      { n: 4, label: "industries: health, finance, mobility, software" },
+      { n: 6, label: "industries: health, finance, mobility, software, sports and construction" },
       { n: 3, label: "platforms: web, iOS and Android" },
       { n: 1, label: "design system built from scratch" },
     ],

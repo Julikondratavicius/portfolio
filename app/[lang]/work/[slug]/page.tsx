@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const locale: Locale = isLocale(lang) ? lang : "es";
   const project = getProject(slug);
   if (!project) return {};
-  const title = `${project.client} — ${project.name}`;
+  const title = project.client === project.name ? project.name : `${project.client} — ${project.name}`;
   return { title, description: project.summary[locale], openGraph: { type: "article", title, description: project.summary[locale] } };
 }
 

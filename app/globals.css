@@ -428,3 +428,42 @@ html:not(.has-cursor) .cursor { display: none; }
   .line > span, .case-title .word > span { transform: none; }
   .marquee-track { animation: none; }
 }
+
+/* Vignette: Rosario Fitness Games */
+.phone-rfg .phone-screen { background: #07142a; color: #eaf1ff; }
+.rfg-logo { font-weight: 800; font-size: 13px; letter-spacing: -.02em; }
+.rfg-logo small { margin-left: 4px; font-size: 9px; color: #3b8bff; }
+.rfg-tabs { display: flex; gap: 4px; }
+.rfg-tabs span { padding: 5px 10px; border-radius: 999px; background: rgb(255 255 255 / .06); color: #8ea3c7; font-size: 10px; }
+.rfg-tabs span.on { background: #3b8bff; color: #fff; font-weight: 600; }
+.rfg-rows { display: grid; gap: 6px; }
+.rfg-row { display: grid; grid-template-columns: 14px 24px 1fr auto; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 12px; background: rgb(255 255 255 / .04); animation: rfg-in .9s var(--ease) both; }
+.rfg-row:nth-child(1) { background: rgb(59 139 255 / .18); }
+.rfg-row:nth-child(2) { animation-delay: .08s; } .rfg-row:nth-child(3) { animation-delay: .16s; } .rfg-row:nth-child(4) { animation-delay: .24s; } .rfg-row:nth-child(5) { animation-delay: .32s; }
+.rfg-pos { color: #8ea3c7; font-family: var(--mono); font-size: 10px; }
+.rfg-av { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #1b2c4d; font-size: 8.5px; font-weight: 700; }
+.rfg-bar { height: 4px; border-radius: 4px; background: rgb(255 255 255 / .08); overflow: hidden; }
+.rfg-bar i { display: block; height: 100%; background: #3b8bff; transform-origin: left; animation: rfg-bar 2.2s var(--ease) .4s both; }
+.rfg-row:nth-child(1) .rfg-bar i { width: 100%; } .rfg-row:nth-child(2) .rfg-bar i { width: 90%; } .rfg-row:nth-child(3) .rfg-bar i { width: 80%; } .rfg-row:nth-child(4) .rfg-bar i { width: 70%; } .rfg-row:nth-child(5) .rfg-bar i { width: 64%; }
+.rfg-cta { background: #3b8bff; }
+@keyframes rfg-in { from { opacity: 0; transform: translateX(-10px); } }
+@keyframes rfg-bar { from { transform: scaleX(0); } }
+
+/* Vignette: Konstrudesch */
+.browser-dark { background: #111216; }
+.browser-dark .browser-bar { border-color: #23252b; }
+.browser-dark .browser-bar i { background: #2b2d34; }
+.browser-dark .browser-bar span { background: #1c1e23; color: #8a8d96; }
+.kd-body { position: relative; display: flex; flex-direction: column; gap: 12px; height: calc(100% - 38px); padding: 14px 18px; color: #f5f1ea; overflow: hidden; }
+.kd-nav { display: flex; align-items: center; gap: 10px; }
+.kd-nav b { font-size: 12px; letter-spacing: -.02em; margin-right: auto; }
+.kd-nav b em { font-style: normal; color: #f59e0b; }
+.kd-nav span { width: 34px; height: 5px; border-radius: 3px; background: #33353c; }
+.kd-nav .kd-btn { width: 44px; height: 16px; border-radius: 5px; background: #f59e0b; }
+.kd-title { position: relative; z-index: 1; margin: 6px 0 0; font-size: clamp(20px, 2.2vw, 30px); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; }
+.kd-title em { font-style: normal; color: #f59e0b; }
+.kd-big { position: absolute; right: 14px; top: 34px; font-size: clamp(60px, 7vw, 110px); font-weight: 300; line-height: 1; color: transparent; -webkit-text-stroke: 1px #3a3c43; animation: shimmer 4s var(--ease-in-out) infinite; }
+.kd-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: auto; }
+.kd-card { display: grid; gap: 6px; padding: 6px; border-radius: 8px; background: #1c1e23; }
+.kd-card i { height: 42px; border-radius: 5px; background: linear-gradient(135deg, #3a3024, #6b4a1c); }
+.kd-card span { height: 5px; width: 70%; border-radius: 3px; background: #3a3c43; }
