@@ -82,7 +82,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const c = words[locale];
-  const marquee = ["Product Design", "Design Systems", "HealthTech", "Fintech", "Crypto", "SaaS", "MaaS", "B2B2C", "0 → 1", "Product Discovery", "Data-driven UX", "Startups"];
+  const marquee = ["AI Product Design", "Product Design", "AI-driven Discovery", "Design Systems", "Prototyping with AI", "HealthTech", "Fintech", "Crypto", "SaaS", "MaaS", "B2B2C", "0 → 1", "AI-native Product", "Data-driven UX", "Startups"];
 
   return (
     <main className="home" id="top">

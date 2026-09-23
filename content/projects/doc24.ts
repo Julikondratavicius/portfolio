@@ -278,4 +278,12 @@ export const doc24: Project = {
       "Drawings get copied; documented reasoning is what lasts.",
     ],
   },
+  ai: {
+    title: { es: "IA para decidir más rápido", en: "AI to decide faster" },
+    body: {
+      es: "Uso IA para sintetizar cuestionarios y research, y para pasar de una idea a un prototipo navegable en horas. Así validamos flujos con usuarios antes de comprometer desarrollo.",
+      en: "I use AI to synthesize questionnaires and research, and to go from an idea to a clickable prototype in hours. That lets us validate flows with users before committing engineering.",
+    },
+    tools: ["Claude", "Figma Make", "v0"],
+  },
 };

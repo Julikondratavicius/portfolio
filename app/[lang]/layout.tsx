@@ -122,7 +122,11 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang={htmlLang[locale]} className={`${sans.variable} ${mono.variable}`}>
+    <html lang={htmlLang[locale]} className={`${sans.variable} ${mono.variable}`} data-theme="dark" suppressHydrationWarning>
+      <head>
+        {/* Aplica el tema guardado antes de pintar, sin parpadeo. Oscuro por defecto. */}
+        <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}` }} />
+      </head>
       <body>
         <a
           href="#main"

@@ -106,4 +106,12 @@ export const konstrudesch: Project = {
       "TODO: add a learning of your own from this project.",
     ],
   },
+  ai: {
+    title: { es: "Diseñado y construido con IA", en: "Designed and built with AI" },
+    body: {
+      es: "Estructura, contenido bilingüe y código trabajados con IA: definí la arquitectura con Claude, construí con Claude Code y publiqué en Vercel. Menos tiempo en producción, más tiempo en el mensaje.",
+      en: "Structure, bilingual content and code built with AI: I defined the architecture with Claude, built with Claude Code and shipped on Vercel. Less time on production, more time on the message.",
+    },
+    tools: ["Claude", "Claude Code", "Vercel"],
+  },
 };

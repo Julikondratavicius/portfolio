@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 }
 
 const words = {
-  es: { back: "Todos los casos", role: "Rol", team: "Equipo", timeline: "Duración", platforms: "Plataformas", tldr: "En 30 segundos", challenge: "El desafío", did: "Qué hice", focus: "Foco", index: "Índice del caso", decision: "Decisión", learnings: "Lo que me llevo", next: "Siguiente caso", process: "Proceso", impact: "Impacto", decisions: "Decisiones" },
-  en: { back: "All cases", role: "Role", team: "Team", timeline: "Timeline", platforms: "Platforms", tldr: "In 30 seconds", challenge: "The challenge", did: "What I did", focus: "Focus", index: "Case index", decision: "Decision", learnings: "What I took away", next: "Next case", process: "Process", impact: "Impact", decisions: "Decisions" },
+  es: { back: "Todos los casos", role: "Rol", team: "Equipo", timeline: "Duración", platforms: "Plataformas", tldr: "En 30 segundos", challenge: "El desafío", did: "Qué hice", focus: "Foco", index: "Índice del caso", decision: "Decisión", learnings: "Lo que me llevo", next: "Siguiente caso", process: "Proceso", ai: "IA", impact: "Impacto", decisions: "Decisiones" },
+  en: { back: "All cases", role: "Role", team: "Team", timeline: "Timeline", platforms: "Platforms", tldr: "In 30 seconds", challenge: "The challenge", did: "What I did", focus: "Focus", index: "Case index", decision: "Decision", learnings: "What I took away", next: "Next case", process: "Process", ai: "AI", impact: "Impact", decisions: "Decisions" },
 } as const;
 
 export default async function CaseStudyPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
@@ -59,6 +59,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
   const index = [
     ...chapters.map((chapter) => ({ id: chapter.id, label: chapter.eyebrow[locale], title: chapter.title[locale] })),
     ...(decisions.length ? [{ id: "decisions", label: w.decisions, title: decisions[0].title[locale] }] : []),
+    ...(project.ai ? [{ id: "ai", label: w.ai, title: project.ai.title[locale] }] : []),
     ...(learnings.length ? [{ id: "learnings", label: w.learnings, title: learnings[0] }] : []),
   ];
 
@@ -107,7 +108,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
         <p className="label">{w.process}</p>
         <ol className="process-steps">
           {index.map((step, i) => (
-            <li key={step.id} data-reveal style={{ ["--d" as string]: `${i * 0.06}s` }}>
+            <li key={step.id} className={step.id === "ai" ? "process-ai" : undefined} data-reveal style={{ ["--d" as string]: `${i * 0.06}s` }}>
               <a href={`#${step.id}`}>
                 <span className="process-n">{String(i + 1).padStart(2, "0")}</span>
                 <strong>{step.label}</strong>
@@ -153,9 +154,18 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
             </section>
           )}
 
+          {project.ai && (
+            <section className="chapter ai-case" id="ai">
+              <p className="label chapter-label" data-reveal><span>{String(index.findIndex((item) => item.id === "ai") + 1).padStart(2, "0")}</span>{w.ai}</p>
+              <h2 data-reveal>{project.ai.title[locale]}</h2>
+              <p data-reveal>{project.ai.body[locale]}</p>
+              <ul className="ai-tools" data-reveal>{project.ai.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul>
+            </section>
+          )}
+
           {learnings.length > 0 && (
             <section className="chapter" id="learnings">
-              <p className="label chapter-label" data-reveal><span>{String(chapters.length + (decisions.length ? 2 : 1)).padStart(2, "0")}</span>{w.learnings}</p>
+              <p className="label chapter-label" data-reveal><span>{String(index.findIndex((item) => item.id === "learnings") + 1).padStart(2, "0")}</span>{w.learnings}</p>
               <ol className="learnings">
                 {learnings.map((item) => <li key={item} data-reveal>{item}</li>)}
               </ol>

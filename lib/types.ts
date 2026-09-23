@@ -83,4 +83,10 @@ export interface Project {
   chapters: Chapter[];
   decisions: Decision[];
   learnings: Localized<string[]>;
+  /** Cómo usé IA en este proyecto: se muestra como paso del proceso. */
+  ai?: {
+    title: Localized<string>;
+    body: Localized<string>;
+    tools: string[];
+  };
 }

@@ -44,11 +44,33 @@ export function Header({ locale }: { locale: Locale }) {
         <Link href={`${home}#approach`}>{c.approach}</Link>
         <Link href={`${home}#ai`}>{c.ai}</Link>
         <Link href={`${home}#experience`}>{c.experience}</Link>
+        <ThemeToggle locale={locale} />
         <Link className="lang" href={switchLocale(pathname, locale === "es" ? "en" : "es")} hrefLang={locale === "es" ? "en" : "es"}>
           <span className={locale === "es" ? "on" : ""}>ES</span>/<span className={locale === "en" ? "on" : ""}>EN</span>
         </Link>
       </nav>
     </header>
+  );
+}
+
+function ThemeToggle({ locale }: { locale: Locale }) {
+  const [dark, setDark] = useState(true);
+  useEffect(() => { setDark(document.documentElement.dataset.theme !== "light"); }, []);
+  const toggle = () => {
+    const next = dark ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch {}
+    setDark(!dark);
+  };
+  const label = locale === "es" ? (dark ? "Cambiar a tema claro" : "Cambiar a tema oscuro") : (dark ? "Switch to light theme" : "Switch to dark theme");
+  return (
+    <button type="button" className="theme-toggle" onClick={toggle} aria-label={label} title={label}>
+      {dark ? (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><circle cx="12" cy="12" r="4.5" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+      ) : (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" /></svg>
+      )}
+    </button>
   );
 }
 

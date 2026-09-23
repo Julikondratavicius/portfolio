@@ -109,4 +109,12 @@ export const rosarioFitnessGames: Project = {
       "TODO: add a learning of your own from this project.",
     ],
   },
+  ai: {
+    title: { es: "Diseñado y construido con IA", en: "Designed and built with AI" },
+    body: {
+      es: "Del concepto al sitio en producción con IA en todo el flujo: prototipé en v0, construí con Claude Code y Codex, y publiqué en Vercel. Un producto completo sin un equipo de desarrollo detrás.",
+      en: "From concept to production with AI across the whole flow: prototyped in v0, built with Claude Code and Codex, shipped on Vercel. A complete product without an engineering team behind it.",
+    },
+    tools: ["v0", "Claude Code", "Codex", "Vercel"],
+  },
 };
