@@ -12,8 +12,7 @@ const words = {
   es: {
     eyebrow: "Product & Experience Designer",
     lines: ["Hago que", "lo complejo", "sea claro."],
-    intro: "Diseño productos y experiencias end-to-end conectando las necesidades de las personas, los objetivos del negocio y la operación que hay detrás.",
-    introSub: "+5 años trabajando en healthtech, fintech y movilidad, desde research y estrategia hasta productos digitales en producción.",
+    intro: "Diseño productos y experiencias end-to-end que conectan las necesidades de las personas, los objetivos del negocio y la operación que hay detrás. +5 años en healthtech, fintech y movilidad.",
     scroll: "Scrolleá",
     workLabel: "Trabajo seleccionado",
     workTitle: "De problemas complejos a experiencias que funcionan",
@@ -42,8 +41,7 @@ const words = {
   en: {
     eyebrow: "Product & Experience Designer",
     lines: ["I make", "complex things", "feel clear."],
-    intro: "I design end-to-end products and experiences that connect people’s needs, business goals and the operation behind them.",
-    introSub: "5+ years across healthtech, fintech and mobility, from research and strategy to digital products in production.",
+    intro: "I design end-to-end products and experiences that connect people’s needs, business goals and the operation behind them. 5+ years across healthtech, fintech and mobility.",
     scroll: "Scroll",
     workLabel: "Selected work",
     workTitle: "From complex problems to experiences that work",
@@ -107,7 +105,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       {/* HERO */}
       <section className="hero">
         <div className="hero-top">
-          <p className="label" data-reveal><span className="status-dot" />{c.eyebrow}</p>
+          <p className="label" data-reveal>{c.eyebrow}</p>
         </div>
         <h1 className="hero-title">
           {c.lines.map((line, i) => (
@@ -115,10 +113,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           ))}
         </h1>
         <div className="hero-bottom">
-          <div className="hero-intro" data-reveal>
-            <p>{c.intro}</p>
-            <p className="hero-intro-sub">{c.introSub}</p>
-          </div>
+          <p className="hero-intro" data-reveal>{c.intro}</p>
           <a href="#work" className="scroll-cue" data-reveal><span />{c.scroll}</a>
         </div>
       </section>
@@ -225,9 +220,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               <span className="process-n">{step.n}</span>
               <h3>{step.title[locale]}</h3>
               <ul className="process-items">{step.items[locale].map((item) => <li key={item}>{item}</li>)}</ul>
-              {step.ai && (
-                <p className="process-ai"><span>{c.aiTag}</span>{step.ai.join(" · ")}</p>
-              )}
+              <p className="process-ai">
+                {step.ai ? <><span>{c.aiTag}</span>{step.ai.join(", ")}</> : null}
+              </p>
             </li>
           ))}
         </ol>

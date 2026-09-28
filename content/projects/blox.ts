@@ -10,7 +10,7 @@ export const blox: Project = {
   name: "Blox",
   client: "Blox",
   industry: { es: "SaaS / Sports-tech", en: "SaaS / Sports-tech" },
-  year: "2026 — Hoy",
+  year: "2026 — Actualidad",
   accent: "#5AE493",
   personal: true,
 

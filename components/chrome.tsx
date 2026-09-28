@@ -144,6 +144,26 @@ function ThemeToggle({ locale }: { locale: Locale }) {
 }
 
 export function FloatingCta({ locale }: { locale: Locale }) {
+  const pathname = usePathname();
+  useEffect(() => {
+    const root = document.documentElement;
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      const foot = document.querySelector(".contact-foot");
+      root.classList.toggle("at-end", !!foot && foot.getBoundingClientRect().top < window.innerHeight);
+    };
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(check); };
+    check();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      root.classList.remove("at-end");
+    };
+  }, [pathname]);
   return (
     <Magnetic className="floating-cta-wrap" strength={0.45}>
       <a className="floating-cta" href={`mailto:${site.email}`}>

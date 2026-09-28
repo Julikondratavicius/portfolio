@@ -55,10 +55,12 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
   const nextTone = next ? toneFor(next.slug) : tone;
   const others = projects.filter((p) => p.slug !== project.slug && p.slug !== next?.slug);
 
+  // "2023 — Actualidad" / "2021 — 2022" / "2026", con "Actualidad" traducido.
+  const years = project.year.replace(/Actualidad|Hoy|Present/, locale === "es" ? "Actualidad" : "Present");
   const meta = [
     [w.role, project.role[locale]],
     [w.team, project.team[locale]],
-    [w.timeline, project.timeline[locale]],
+    [w.timeline, years],
     [w.platforms, project.platforms[locale]],
   ].filter(([, value]) => !isTodo(value));
   const metrics = project.metrics.filter((metric) => metric.value);
@@ -120,7 +122,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
           <nav aria-label="Breadcrumb"><Link href={`${href("/", locale)}#work`} className="case-back">← {w.back}</Link></nav>
           <p className="label case-kicker">
             {project.personal && <span className="case-badge">{w.personal}</span>}
-            {project.client} · {project.industry[locale]} · {project.year}
+            {project.client} · {project.industry[locale]}
           </p>
           <h1 className="case-title">
             {project.tagline[locale].split(" ").map((word, i) => (
@@ -137,7 +139,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
         <div className="case-hero-media" data-reveal><Vignette slug={project.slug} locale={locale} size="hero" /></div>
       </section>
 
-      <section className="case-meta">
+      <section className="case-meta" style={{ ["--n" as string]: meta.length }}>
         {meta.map(([label, value]) => (
           <div key={label} data-reveal><span className="label">{label}</span><strong>{value}</strong></div>
         ))}
