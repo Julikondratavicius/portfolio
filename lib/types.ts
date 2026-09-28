@@ -33,6 +33,15 @@ export interface Chapter {
     title: Localized<string>;
     body: Localized<string>;
   };
+  /** Mapa de actores: quién participa y qué da o recibe cada uno. */
+  ecosystem?: EcosystemNode[];
+}
+
+export interface EcosystemNode {
+  actor: Localized<string>;
+  flows: Localized<string>;
+  /** El nodo donde se cruzan todos los flujos (se resalta). */
+  center?: boolean;
 }
 
 /**
@@ -54,6 +63,8 @@ export interface Project {
   order: number;
   /** El primero ocupa el ancho completo de la grilla. */
   featured?: boolean;
+  /** flagship = caso principal en la home; project = otros proyectos y experimentos. */
+  tier: "flagship" | "project";
   /** Si es true, se muestra el aviso de contenido bajo NDA. */
   nda?: boolean;
   /** Si es false, no se publica todavia (ni en la grilla ni en el sitemap). */

@@ -173,6 +173,16 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ lang
                   {chapter.items.map((item, j) => <li key={item} data-reveal style={{ ["--d" as string]: `${j * 0.06}s` }}><span>{String(j + 1).padStart(2, "0")}</span>{item}</li>)}
                 </ul>
               )}
+              {chapter.ecosystem && (
+                <ol className="ecosystem" aria-label={chapter.title[locale]}>
+                  {chapter.ecosystem.map((node) => (
+                    <li key={node.actor[locale]} className={node.center ? "is-center" : undefined} data-reveal>
+                      <strong>{node.actor[locale]}</strong>
+                      <span>{node.flows[locale]}</span>
+                    </li>
+                  ))}
+                </ol>
+              )}
               {chapter.aside && chapter.asideBody && (
                 <aside className="callout" data-reveal><strong>{chapter.aside.title[locale]}</strong><p>{chapter.asideBody}</p></aside>
               )}

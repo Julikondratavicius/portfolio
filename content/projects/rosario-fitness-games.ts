@@ -4,6 +4,7 @@ import type { Project } from "@/lib/types";
 export const rosarioFitnessGames: Project = {
   slug: "rosario-fitness-games",
   order: 5,
+  tier: "project",
   published: true,
 
   name: "Rosario Fitness Games",

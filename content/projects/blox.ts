@@ -4,6 +4,7 @@ import type { Project } from "@/lib/types";
 export const blox: Project = {
   slug: "blox",
   order: 4,
+  tier: "project",
   published: true,
 
   name: "Blox",

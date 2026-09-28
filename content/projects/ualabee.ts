@@ -4,6 +4,7 @@ import type { Project } from "@/lib/types";
 export const ualabee: Project = {
   slug: "ualabee",
   order: 3,
+  tier: "flagship",
   published: true,
 
   name: "Ualabee",

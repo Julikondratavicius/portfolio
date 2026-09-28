@@ -12,6 +12,7 @@ import type { Project } from "@/lib/types";
 export const doc24: Project = {
   slug: "doc24-wehealthy",
   order: 1,
+  tier: "flagship",
   featured: true,
   published: true,
   nda: true,
@@ -33,19 +34,19 @@ export const doc24: Project = {
   },
   timeline: { es: "2 años", en: "2 years" },
   platforms: { es: "Web app · iOS · Android", en: "Web app · iOS · Android" },
-  tags: ["Design System", "HealthTech B2B2C", "Data-driven UX", "Scrum"],
+  tags: ["Experience Design", "B2B2C", "Design System", "Data-driven UX"],
 
   tagline: {
-    es: "El design system detrás del bienestar inteligente",
-    en: "The design system behind smart wellbeing",
+    es: "Diseñar bienestar para dos clientes con intereses diferentes",
+    en: "Designing wellbeing for two clients with different interests",
   },
   headline: {
-    es: "Un producto de bienestar corporativo que crecía más rápido de lo que el diseño podía sostener. Construí el sistema que lo ordenó.",
-    en: "A corporate wellness product growing faster than design could sustain. I built the system that brought it back under control.",
+    es: "Un producto B2B2C donde la empresa paga, el empleado usa y un equipo de bienestar opera. Diseñé la experiencia para que los tres ganen con el mismo producto.",
+    en: "A B2B2C product where the company pays, the employee uses and a wellbeing team operates. I designed the experience so all three win with the same product.",
   },
   summary: {
-    es: "Plataforma de bienestar de doble impacto: acompaña a cada persona con una experiencia de salud personalizada y le da a las organizaciones indicadores para anticiparse y decidir. Lideré el Design System y diseñé los flujos end-to-end a partir de cuestionarios de autopercepción y datos reales.",
-    en: "A dual-impact wellbeing platform: it guides each person through a personalized health experience and gives organizations indicators to anticipate and decide. I led the Design System and designed the end-to-end flows from self-perception questionnaires and real data.",
+    es: "Plataforma de bienestar corporativo con varios actores y un solo producto: RRHH necesita medir, el empleado necesita confiar y el equipo de bienestar necesita operar. Diseñé la experiencia end-to-end, del onboarding al reporte, y el design system que la sostiene.",
+    en: "A corporate wellbeing platform with several actors and one product: HR needs to measure, employees need to trust and the wellbeing team needs to operate. I designed the end-to-end experience, from onboarding to reporting, and the design system that holds it together.",
   },
 
   cover: {
@@ -96,15 +97,17 @@ export const doc24: Project = {
       id: "context",
       eyebrow: { es: "Contexto", en: "Context" },
       title: {
-        es: "Dos usuarios, dos incentivos",
-        en: "Two users, two incentives",
+        es: "Dos clientes, dos incentivos",
+        en: "Two clients, two incentives",
       },
       body: {
         es: [
           "La empresa contrata; la persona usa. Una quiere evidencia de que la inversión sirve, la otra quiere sentirse mejor sin sentirse vigilada.",
+          "En el medio, un equipo de bienestar tiene que operar el programa, y el producto tiene que hacer que todo eso se sienta como una sola experiencia.",
         ],
         en: [
           "The company buys; the person uses. One wants proof the investment works, the other wants to feel better without feeling watched.",
+          "In between, a wellbeing team has to run the program, and the product has to make all of it feel like a single experience.",
         ],
       },
     },
@@ -112,29 +115,70 @@ export const doc24: Project = {
       id: "problem",
       eyebrow: { es: "El problema", en: "The problem" },
       title: {
-        es: "La deuda de diseño se veía en el calendario",
-        en: "The design debt showed up on the calendar",
+        es: "Un ecosistema, no una app",
+        en: "An ecosystem, not an app",
       },
       body: {
         es: [
-          "Cada feature volvía a discutir botones y estados en lugar del problema del usuario. No perdíamos prolijidad: perdíamos ciclos de producto.",
+          "Cada actor necesitaba algo distinto del mismo producto. Si diseñábamos pensando en uno solo, los demás dejaban de funcionar.",
         ],
         en: [
-          "Every feature re-argued buttons and states instead of the user's problem. We weren't losing polish: we were losing product cycles.",
+          "Every actor needed something different from the same product. Designing for just one of them broke it for everyone else.",
         ],
       },
       bullets: {
         es: [
-          "Componentes duplicados entre web y mobile.",
-          "El detalle se definía en desarrollo, no en diseño.",
-          "Decisiones que se perdían entre sprints.",
+          "RRHH necesita medir resultados y justificar la inversión.",
+          "El empleado necesita confiar antes de responder con honestidad.",
+          "El equipo de bienestar necesita operar contenido y acompañamiento.",
+          "Producto tiene que convertir todo eso en una experiencia coherente.",
         ],
         en: [
-          "Duplicated components across web and mobile.",
-          "Details got defined in engineering, not design.",
-          "Decisions lost between sprints.",
+          "HR needs to measure results and justify the investment.",
+          "Employees need to trust the product before answering honestly.",
+          "The wellbeing team needs to run content and follow-up.",
+          "Product has to turn all of that into one coherent experience.",
         ],
       },
+    },
+    {
+      id: "ecosystem",
+      eyebrow: { es: "El ecosistema", en: "The ecosystem" },
+      title: {
+        es: "Quién da y quién recibe",
+        en: "Who gives and who gets",
+      },
+      body: {
+        es: [
+          "Mapeé qué entrega y qué recibe cada actor. La plataforma no es el centro por ser la app: es donde se cruzan todas las promesas.",
+        ],
+        en: [
+          "I mapped what each actor gives and gets. The platform isn't the center because it's the app: it's where every promise meets.",
+        ],
+      },
+      ecosystem: [
+        {
+          actor: { es: "Empresa / RRHH", en: "Company / HR" },
+          flows: { es: "Contrata · comunica · recibe insights", en: "Buys · communicates · gets insights" },
+        },
+        {
+          actor: { es: "Plataforma", en: "Platform" },
+          flows: { es: "Onboarding · assessment · contenido · recomendaciones", en: "Onboarding · assessment · content · recommendations" },
+          center: true,
+        },
+        {
+          actor: { es: "Empleado", en: "Employee" },
+          flows: { es: "Responde · recibe valor · vuelve al producto", en: "Answers · gets value · comes back" },
+        },
+        {
+          actor: { es: "Equipo de bienestar", en: "Wellbeing team" },
+          flows: { es: "Contenido · intervención · acompañamiento", en: "Content · intervention · follow-up" },
+        },
+        {
+          actor: { es: "Datos / analytics", en: "Data / analytics" },
+          flows: { es: "Agregación · privacidad · reporting", en: "Aggregation · privacy · reporting" },
+        },
+      ],
     },
     {
       id: "research",
@@ -153,34 +197,6 @@ export const doc24: Project = {
       },
     },
     {
-      id: "system",
-      eyebrow: { es: "El sistema", en: "The system" },
-      title: {
-        es: "Tokens, componentes y reglas",
-        en: "Tokens, components and rules",
-      },
-      body: {
-        es: [
-          "En ese orden. Ningún componente entra a la librería sin todos sus estados, y cada uno se documenta con su cuándo sí y su cuándo no.",
-        ],
-        en: [
-          "In that order. No component enters the library without all its states, and each one is documented with when to use it and when not to.",
-        ],
-      },
-      bullets: {
-        es: [
-          "Tokens: color, tipografía, espaciado, radios y elevación.",
-          "7 estados por componente, incluidos vacío y error.",
-          "Guías de uso para que el criterio sobreviva a la rotación del equipo.",
-        ],
-        en: [
-          "Tokens: color, type, spacing, radii and elevation.",
-          "7 states per component, including empty and error.",
-          "Usage guidelines so the reasoning survives team turnover.",
-        ],
-      },
-    },
-    {
       id: "flows",
       eyebrow: { es: "Los flujos", en: "The flows" },
       title: {
@@ -193,6 +209,34 @@ export const doc24: Project = {
         ],
         en: [
           "The challenge wasn't usability, it was trust. Every question gives something back before asking the next, and it's clear what the company can and can't see.",
+        ],
+      },
+    },
+    {
+      id: "system",
+      eyebrow: { es: "El sistema", en: "The system" },
+      title: {
+        es: "El design system que lo hizo escalable",
+        en: "The design system that made it scale",
+      },
+      body: {
+        es: [
+          "Con varios actores y web + mobile, la consistencia no era estética: era confianza. Construí el design system para que cada flujo nuevo hable el mismo idioma sin volver a discutir botones y estados.",
+        ],
+        en: [
+          "With several actors across web and mobile, consistency wasn't aesthetics: it was trust. I built the design system so every new flow speaks the same language without re-arguing buttons and states.",
+        ],
+      },
+      bullets: {
+        es: [
+          "Tokens: color, tipografía, espaciado, radios y elevación.",
+          "7 estados por componente, incluidos vacío y error.",
+          "Una sola librería para web y mobile, sin componentes duplicados.",
+        ],
+        en: [
+          "Tokens: color, type, spacing, radii and elevation.",
+          "7 states per component, including empty and error.",
+          "One library for web and mobile, no duplicated components.",
         ],
       },
     },
@@ -269,14 +313,14 @@ export const doc24: Project = {
 
   learnings: {
     es: [
-      "Un Design System se vende con métricas del equipo, no con capturas lindas.",
+      "En B2B2C, diseñar para quien paga sin perder a quien usa es el verdadero problema de producto.",
       "En salud, la confianza es parte de la usabilidad.",
-      "El dibujo se copia; el criterio documentado es lo que perdura.",
+      "Un Design System se vende con métricas del equipo, no con capturas lindas.",
     ],
     en: [
-      "A Design System is sold with team metrics, not pretty screenshots.",
+      "In B2B2C, designing for whoever pays without losing whoever uses is the real product problem.",
       "In healthcare, trust is part of usability.",
-      "Drawings get copied; documented reasoning is what lasts.",
+      "A Design System is sold with team metrics, not pretty screenshots.",
     ],
   },
   ai: {

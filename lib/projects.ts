@@ -35,7 +35,8 @@ export function getNextProject(slug: string): Project | undefined {
   return projects[(i + 1) % projects.length];
 }
 
-/** Los destacados para la home. */
-export function getFeaturedProjects(limit = 4): Project[] {
-  return projects.slice(0, limit);
-}
+/** Casos principales de la home. */
+export const flagshipProjects: Project[] = projects.filter((p) => p.tier === "flagship");
+
+/** Otros proyectos y experimentos. */
+export const otherProjects: Project[] = projects.filter((p) => p.tier === "project");

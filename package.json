@@ -2,7 +2,7 @@
   "name": "julikondratavicius",
   "version": "1.0.0",
   "private": true,
-  "description": "Portfolio de Julian Kondratavicius — Senior Product Designer",
+  "description": "Portfolio de Julian Kondratavicius — Product & Experience Designer",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

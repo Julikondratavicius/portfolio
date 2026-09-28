@@ -32,7 +32,7 @@ export function llmsIndex(): string {
 
 /** Todo el contenido de los casos en texto plano. */
 export function llmsFull(): string {
-  const out: string[] = [`# ${site.name} — Senior Product Designer & Design Lead`, "", faq.map((i) => `${i.q.en}\n${i.a.en}`).join("\n\n"), "", "## Experience"];
+  const out: string[] = [`# ${site.name} — ${site.role}`, "", faq.map((i) => `${i.q.en}\n${i.a.en}`).join("\n\n"), "", "## Experience"];
   for (const job of experience) out.push(`- ${job.company.en} — ${job.title.en} (${job.period.replace("Actualidad", "Present")}): ${job.points.en[0]}`);
   for (const p of projects) {
     out.push("", `## ${p.name} — ${p.tagline.en}`, `URL: ${site.url}/en/work/${p.slug}`, p.url ? `Live project: ${p.url}` : "", `Industry: ${p.industry.en} · Year: ${p.year} · Role: ${p.role.en}`, "", p.headline.en, "", p.summary.en);
@@ -41,6 +41,7 @@ export function llmsFull(): string {
       const bullets = c.bullets ? visible(c.bullets.en) : [];
       if (!body.length && !bullets.length) continue;
       out.push("", `### ${c.eyebrow.en}: ${c.title.en}`, ...body, ...bullets.map((b) => `- ${b}`));
+      if (c.ecosystem) out.push(...c.ecosystem.map((n) => `- ${n.actor.en}: ${n.flows.en}`));
     }
     if (p.ai) out.push("", `### AI in the process: ${p.ai.title.en}`, p.ai.body.en, `Tools: ${p.ai.tools.join(", ")}`);
     const learnings = visible(p.learnings.en);

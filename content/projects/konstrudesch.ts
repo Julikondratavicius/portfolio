@@ -4,6 +4,7 @@ import type { Project } from "@/lib/types";
 export const konstrudesch: Project = {
   slug: "konstrudesch",
   order: 6,
+  tier: "project",
   published: true,
 
   name: "Konstrudesch",

@@ -2,7 +2,7 @@ import type { Localized } from "@/lib/i18n";
 
 export const site = {
   name: "Julián Kondratavicius",
-  role: "Senior Product Designer & Design Lead",
+  role: "Product & Experience Designer",
   email: "jjkondratavicius@gmail.com",
   linkedin: "https://www.linkedin.com/in/juli%C3%A1n-kondratavicius-8163b1189/",
   url: "https://www.jkondratavicius.com",
@@ -22,8 +22,8 @@ export const nav: { href: string; label: Localized<string> }[] = [
 
 export const hero = {
   available: {
-    es: "Senior Product Designer — Abierto a roles de Product Lead",
-    en: "Senior Product Designer — Open to Product Lead roles",
+    es: "Product & Experience Designer — Abierto a nuevos roles",
+    en: "Product & Experience Designer — Open to new roles",
   },
   /** Cada string es una línea con su propia animación de entrada. ** = negrita. */
   headline: {
@@ -76,6 +76,67 @@ export const principles: {
       es: "No existe la solución sin costo. Mi trabajo es hacer explícito el trade-off para que negocio, tecnología y producto decidan con la misma información.",
       en: "There is no solution without a cost. My job is to make the trade-off explicit so business, engineering and product decide with the same information.",
     },
+  },
+];
+
+/** Cómo trabajo: de entender el problema a medir el resultado. `ai` = dónde entra la IA. */
+export const process: {
+  n: string;
+  title: Localized<string>;
+  items: Localized<string[]>;
+  ai?: string[];
+}[] = [
+  {
+    n: "01",
+    title: { es: "Entender", en: "Understand" },
+    items: {
+      es: ["Research", "Entrevistas con stakeholders", "Datos", "Contexto de negocio"],
+      en: ["Research", "Stakeholder interviews", "Data", "Business context"],
+    },
+    ai: ["Claude", "ChatGPT"],
+  },
+  {
+    n: "02",
+    title: { es: "Enfocar", en: "Frame" },
+    items: {
+      es: ["Definición del problema", "JTBD", "Insights", "Áreas de oportunidad"],
+      en: ["Problem framing", "JTBD", "Insights", "Opportunity areas"],
+    },
+    ai: ["Claude"],
+  },
+  {
+    n: "03",
+    title: { es: "Mapear", en: "Map" },
+    items: {
+      es: ["User journey", "User flows", "Ecosystem map"],
+      en: ["User journey", "User flows", "Ecosystem map"],
+    },
+  },
+  {
+    n: "04",
+    title: { es: "Definir", en: "Define" },
+    items: {
+      es: ["Principios de experiencia", "Propuesta de valor", "Concepto de producto", "Estrategia de producto"],
+      en: ["Experience principles", "Value proposition", "Product concept", "Product strategy"],
+    },
+  },
+  {
+    n: "05",
+    title: { es: "Diseñar", en: "Design" },
+    items: {
+      es: ["Flujos", "Prototipos", "Producto digital", "Design system"],
+      en: ["Flows", "Prototypes", "Digital product", "Design system"],
+    },
+    ai: ["Figma Make", "v0", "Claude Code", "Cursor"],
+  },
+  {
+    n: "06",
+    title: { es: "Medir", en: "Measure" },
+    items: {
+      es: ["Product analytics", "Tests de usabilidad", "Métricas de negocio", "Experimentos"],
+      en: ["Product analytics", "Usability testing", "Business metrics", "Experiments"],
+    },
+    ai: ["Claude Code"],
   },
 ];
 

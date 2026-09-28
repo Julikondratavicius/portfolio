@@ -9,8 +9,8 @@ import { site } from "@/content/site";
 import { Magnetic } from "./motion";
 
 const copy = {
-  es: { work: "Trabajo", approach: "Enfoque", ai: "IA", experience: "Experiencia", contact: "Hablemos", },
-  en: { work: "Work", approach: "Approach", ai: "AI", experience: "Experience", contact: "Let’s talk", },
+  es: { work: "Trabajo", approach: "Enfoque", process: "Proceso", experience: "Experiencia", contact: "Hablemos", },
+  en: { work: "Work", approach: "Approach", process: "Process", experience: "Experience", contact: "Let’s talk", },
 } as const;
 
 export function Header({ locale }: { locale: Locale }) {
@@ -42,7 +42,7 @@ export function Header({ locale }: { locale: Locale }) {
       <nav className="site-nav" aria-label={locale === "es" ? "Navegación principal" : "Main navigation"}>
         <Link href={`${home}#work`}>{c.work}</Link>
         <Link href={`${home}#approach`}>{c.approach}</Link>
-        <Link href={`${home}#ai`}>{c.ai}</Link>
+        <Link href={`${home}#process`}>{c.process}</Link>
         <Link href={`${home}#experience`}>{c.experience}</Link>
         <ThemeToggle locale={locale} />
         <Link className="lang" href={switchLocale(pathname, locale === "es" ? "en" : "es")} hrefLang={locale === "es" ? "en" : "es"}>

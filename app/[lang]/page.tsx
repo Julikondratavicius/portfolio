@@ -2,21 +2,23 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { href } from "@/lib/href";
-import { projects } from "@/lib/projects";
-import { experience, principles, site } from "@/content/site";
+import { flagshipProjects, otherProjects, projects } from "@/lib/projects";
+import { experience, principles, process, site } from "@/content/site";
 import { Vignette } from "@/components/vignettes";
 import { toneFor } from "@/lib/palette";
 import { CopyEmail, Counter, Magnetic, ScrollText } from "@/components/motion";
 
 const words = {
   es: {
-    eyebrow: "Senior Product Designer & Design Lead",
+    eyebrow: "Product & Experience Designer",
     lines: ["Hago que", "lo complejo", "sea claro."],
-    intro: "+5 años llevando productos de healthtech, fintech y movilidad de la idea a un sistema que el equipo puede escalar.",
+    intro: "Diseño productos y experiencias end-to-end conectando las necesidades de las personas, los objetivos del negocio y la operación que hay detrás.",
+    introSub: "+5 años trabajando en healthtech, fintech y movilidad, desde research y estrategia hasta productos digitales en producción.",
     scroll: "Scrolleá",
     workLabel: "Trabajo seleccionado",
-    workTitle: "Casos donde el diseño movió el producto",
+    workTitle: "De problemas complejos a experiencias que funcionan",
     view: "Ver caso",
+    moreLabel: "Otros proyectos y experimentos",
     numbers: [
       { n: 5, prefix: "+", label: "años diseñando producto" },
       { n: 6, label: "industrias: salud, finanzas, movilidad, software, deporte y construcción" },
@@ -25,16 +27,11 @@ const words = {
     ],
     approachLabel: "Enfoque",
     manifesto: "No diseño pantallas sueltas. Diseño el sistema y las decisiones que hacen que un equipo de producto avance más rápido, con criterio, y sin tener que volver a discutir lo mismo en cada sprint.",
-    capabilities: ["Product Strategy", "Product Management", "Business Strategy", "Roadmapping", "Stakeholder Management", "Team Leadership", "Discovery", "Design Systems", "AI-assisted workflows"],
-    aiLabel: "IA en el proceso",
-    aiTitle: "Diseño y construyo producto con IA",
-    aiIntro: "Uso IA en cada etapa para investigar, prototipar y lanzar más rápido, sin perder el criterio de producto. Este portfolio lo diseñé y construí así.",
-    aiSteps: [
-      { n: "01", title: "Discovery", body: "Sintetizo entrevistas, research y datos para llegar antes a los insights y a las preguntas correctas.", tools: ["Claude", "ChatGPT"] },
-      { n: "02", title: "Prototipado", body: "De la idea a un prototipo funcional en horas, no semanas, para validar con usuarios reales.", tools: ["v0", "Figma Make", "Claude"] },
-      { n: "03", title: "Diseño y build", body: "Diseño y construyo producto real junto al código: del design system al deploy.", tools: ["Claude Code", "Codex", "Cursor"] },
-      { n: "04", title: "Validación", body: "Testeo, itero y mido antes de escalar, con ciclos cortos entre diseño, negocio y desarrollo.", tools: ["Claude Code", "Vercel"] },
-    ],
+    capabilities: ["Product Strategy", "Experience Design", "Discovery", "User Journeys", "User Flows", "Design Systems", "Stakeholder Management", "Team Leadership", "AI-assisted workflows"],
+    processLabel: "Cómo trabajo",
+    processTitle: "Del problema a la experiencia medida",
+    processIntro: "Seis pasos que se repiten en cada proyecto. La IA entra donde acelera sin reemplazar el criterio: este portfolio lo diseñé y construí así.",
+    aiTag: "IA",
     expLabel: "Experiencia",
     expTitle: "Dónde lo aprendí",
     contactLabel: "Contacto",
@@ -43,13 +40,15 @@ const words = {
     write: "Escribime",
   },
   en: {
-    eyebrow: "Senior Product Designer & Design Lead",
+    eyebrow: "Product & Experience Designer",
     lines: ["I make", "complex things", "feel clear."],
-    intro: "5+ years taking healthtech, fintech and mobility products from idea to a system teams can scale.",
+    intro: "I design end-to-end products and experiences that connect people’s needs, business goals and the operation behind them.",
+    introSub: "5+ years across healthtech, fintech and mobility, from research and strategy to digital products in production.",
     scroll: "Scroll",
     workLabel: "Selected work",
-    workTitle: "Cases where design moved the product",
+    workTitle: "From complex problems to experiences that work",
     view: "View case",
+    moreLabel: "Other projects & experiments",
     numbers: [
       { n: 5, prefix: "+", label: "years designing products" },
       { n: 6, label: "industries: health, finance, mobility, software, sports and construction" },
@@ -58,16 +57,11 @@ const words = {
     ],
     approachLabel: "Approach",
     manifesto: "I don’t design isolated screens. I design the system and the decisions that help a product team move faster, with clear reasoning, without re-arguing the same things every sprint.",
-    capabilities: ["Product Strategy", "Product Management", "Business Strategy", "Roadmapping", "Stakeholder Management", "Team Leadership", "Discovery", "Design Systems", "AI-assisted workflows"],
-    aiLabel: "AI in the process",
-    aiTitle: "I design and build product with AI",
-    aiIntro: "I use AI at every stage to research, prototype and ship faster, without losing product judgment. This portfolio was designed and built that way.",
-    aiSteps: [
-      { n: "01", title: "Discovery", body: "I synthesize interviews, research and data to reach insights — and the right questions — sooner.", tools: ["Claude", "ChatGPT"] },
-      { n: "02", title: "Prototyping", body: "From idea to a working prototype in hours, not weeks, to validate with real users.", tools: ["v0", "Figma Make", "Claude"] },
-      { n: "03", title: "Design & build", body: "I design and build real product alongside the code: from design system to deploy.", tools: ["Claude Code", "Codex", "Cursor"] },
-      { n: "04", title: "Validation", body: "I test, iterate and measure before scaling, with short loops between design, business and engineering.", tools: ["Claude Code", "Vercel"] },
-    ],
+    capabilities: ["Product Strategy", "Experience Design", "Discovery", "User Journeys", "User Flows", "Design Systems", "Stakeholder Management", "Team Leadership", "AI-assisted workflows"],
+    processLabel: "How I work",
+    processTitle: "From the problem to a measured experience",
+    processIntro: "Six steps I repeat on every project. AI comes in where it speeds things up without replacing judgment: this portfolio was designed and built that way.",
+    aiTag: "AI",
     expLabel: "Experience",
     expTitle: "Where I learned it",
     contactLabel: "Contact",
@@ -105,7 +99,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       }
     ],
   };
-  const marquee = ["AI Product Design", "Product Design", "AI-driven Discovery", "Design Systems", "Prototyping with AI", "HealthTech", "Fintech", "Crypto", "SaaS", "MaaS", "B2B2C", "0 → 1", "AI-native Product", "Data-driven UX", "Startups"];
+  const marquee = ["Product Design", "Experience Design", "Product Strategy", "AI Product Design", "AI-driven Discovery", "Design Systems", "Prototyping with AI", "HealthTech", "Fintech", "Crypto", "SaaS", "MaaS", "B2B2C", "0 → 1", "AI-native Product", "Data-driven UX", "Startups"];
 
   return (
     <main className="home" id="top">
@@ -121,7 +115,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           ))}
         </h1>
         <div className="hero-bottom">
-          <p className="hero-intro" data-reveal>{c.intro}</p>
+          <div className="hero-intro" data-reveal>
+            <p>{c.intro}</p>
+            <p className="hero-intro-sub">{c.introSub}</p>
+          </div>
           <a href="#work" className="scroll-cue" data-reveal><span />{c.scroll}</a>
         </div>
       </section>
@@ -144,7 +141,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <h2 className="display-2" data-reveal>{c.workTitle}</h2>
         </div>
         <div className="stack">
-          {projects.map((project, i) => {
+          {flagshipProjects.map((project, i) => {
             const tone = toneFor(project.slug);
             return (
               <Link
@@ -156,7 +153,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               >
                 <div className="panel-media"><Vignette slug={project.slug} locale={locale} /></div>
                 <div className="panel-info">
-                  <div className="panel-meta"><span>{String(i + 1).padStart(2, "0")}. {project.client}{project.personal && <em className="panel-badge">{locale === "es" ? "Proyecto personal" : "Personal project"}</em>}</span><span>{project.year}</span></div>
+                  <div className="panel-meta"><span>{String(i + 1).padStart(2, "0")} — {project.client} · {project.industry[locale]}</span><span>{project.year}</span></div>
                   <h3>{project.tagline[locale]}</h3>
                   <p>{project.summary[locale]}</p>
                   <ul className="chips">{project.tags.slice(0, 3).map((t) => <li key={t}>{t}</li>)}</ul>
@@ -166,6 +163,23 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             );
           })}
         </div>
+        {otherProjects.length > 0 && (
+          <nav className="more-cases work-more" aria-label={c.moreLabel}>
+            <p className="label" data-reveal>{c.moreLabel}</p>
+            <ul>
+              {otherProjects.map((p) => (
+                <li key={p.slug} data-reveal>
+                  <Link href={href(`/work/${p.slug}`, locale)} style={{ ["--dot" as string]: toneFor(p.slug).accent }}>
+                    <span className="more-dot" aria-hidden="true" />
+                    <strong>{p.client}</strong>
+                    <span>{p.tagline[locale]}</span>
+                    <span className="more-arrow" aria-hidden="true">→</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
       </section>
 
       {/* NUMBERS */}
@@ -196,22 +210,24 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </ul>
       </section>
 
-      {/* AI */}
-      <section id="ai" className="ai">
+      {/* PROCESS */}
+      <section id="process" className="process">
         <div className="section-head">
-          <p className="label" data-reveal>03 — {c.aiLabel}</p>
+          <p className="label" data-reveal>03 — {c.processLabel}</p>
           <div>
-            <h2 className="display-2" data-reveal>{c.aiTitle}</h2>
-            <p className="ai-intro" data-reveal>{c.aiIntro}</p>
+            <h2 className="display-2" data-reveal>{c.processTitle}</h2>
+            <p className="process-intro" data-reveal>{c.processIntro}</p>
           </div>
         </div>
-        <ol className="ai-steps">
-          {c.aiSteps.map((step, i) => (
-            <li key={step.n} className="ai-step" data-reveal style={{ ["--d" as string]: `${i * 0.08}s` }}>
-              <span className="ai-n">{step.n}</span>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-              <ul className="ai-tools">{step.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul>
+        <ol className="process-steps">
+          {process.map((step, i) => (
+            <li key={step.n} className="process-step" data-reveal style={{ ["--d" as string]: `${i * 0.06}s` }}>
+              <span className="process-n">{step.n}</span>
+              <h3>{step.title[locale]}</h3>
+              <ul className="process-items">{step.items[locale].map((item) => <li key={item}>{item}</li>)}</ul>
+              {step.ai && (
+                <p className="process-ai"><span>{c.aiTag}</span>{step.ai.join(" · ")}</p>
+              )}
             </li>
           ))}
         </ol>

@@ -4,6 +4,7 @@ import type { Project } from "@/lib/types";
 export const braintly: Project = {
   slug: "braintly",
   order: 7,
+  tier: "project",
   published: true,
 
   name: "Braintly",

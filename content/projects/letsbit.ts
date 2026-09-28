@@ -4,6 +4,7 @@ import type { Project } from "@/lib/types";
 export const letsbit: Project = {
   slug: "letsbit",
   order: 2,
+  tier: "flagship",
   published: true,
 
   name: "LetsBit",

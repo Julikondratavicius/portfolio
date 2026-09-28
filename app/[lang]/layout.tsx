@@ -16,12 +16,12 @@ export function generateStaticParams() {
 
 const meta: Record<Locale, { title: string; description: string }> = {
   es: {
-    title: `${site.name} — Senior Product Designer & Design Lead`,
-    description: "Senior Product Designer y Design Lead en Rosario, Argentina (remoto). +5 años llevando productos SaaS de healthtech, fintech y movilidad de 0 a 1, con design systems e IA en todo el proceso.",
+    title: `${site.name} — Product & Experience Designer`,
+    description: "Product & Experience Designer en Rosario, Argentina (remoto). Diseño productos y experiencias end-to-end en healthtech, fintech y movilidad: de research y estrategia a productos digitales en producción, con IA en todo el proceso.",
   },
   en: {
-    title: `${site.name} — Senior Product Designer & Design Lead`,
-    description: "Senior Product Designer and Design Lead based in Rosario, Argentina (remote). 5+ years taking healthtech, fintech and mobility SaaS products from 0 to 1, with design systems and AI across the process.",
+    title: `${site.name} — Product & Experience Designer`,
+    description: "Product & Experience Designer based in Rosario, Argentina (remote). I design end-to-end products and experiences across healthtech, fintech and mobility: from research and strategy to digital products in production, with AI across the process.",
   },
 };
 
@@ -57,6 +57,8 @@ export async function generateMetadata({
       apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
     },
     keywords: [
+      "Product & Experience Designer",
+      "Experience Designer",
       "Senior Product Designer",
       "Lead Product Designer",
       "Design Lead",
@@ -121,7 +123,7 @@ export default async function RootLayout({
         "@id": `${site.url}/#person`,
         name: site.name,
         alternateName: "Julian Kondratavicius",
-        jobTitle: "Senior Product Designer & Design Lead",
+        jobTitle: "Product & Experience Designer",
         description: meta[locale].description,
         email: `mailto:${site.email}`,
         url: `${site.url}/${locale}`,
@@ -131,13 +133,13 @@ export default async function RootLayout({
         sameAs: [site.linkedin, "https://github.com/Julikondratavicius"],
         knowsLanguage: ["es", "en"],
         knowsAbout: [
-          "Product Design", "Product Strategy", "Design Systems", "UX Research", "Product Discovery",
+          "Product Design", "Experience Design", "Product Strategy", "Design Systems", "UX Research", "Product Discovery",
           "AI-assisted product design", "Prototyping", "SaaS", "HealthTech", "Fintech", "Mobility as a Service",
           "Figma", "Claude Code", "v0", "Design Leadership",
         ],
         hasOccupation: {
           "@type": "Occupation",
-          name: "Senior Product Designer",
+          name: "Product & Experience Designer",
           occupationLocation: { "@type": "Country", name: "Argentina" },
           skills: "Product Strategy, Design Systems, UX Research, Prototyping, AI-assisted design, Stakeholder Management, Team Leadership",
         },
