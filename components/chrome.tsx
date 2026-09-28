@@ -2,22 +2,45 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import type { Locale } from "@/lib/i18n";
 import { href, switchLocale } from "@/lib/href";
 import { site } from "@/content/site";
 import { Magnetic } from "./motion";
 
 const copy = {
-  es: { work: "Trabajo", approach: "Enfoque", process: "Proceso", experience: "Experiencia", contact: "Hablemos", },
-  en: { work: "Work", approach: "Approach", process: "Process", experience: "Experience", contact: "Let’s talk", },
+  es: { work: "Trabajo", approach: "Enfoque", process: "Proceso", experience: "Experiencia", contact: "Hablemos", open: "Abrir menú", close: "Cerrar menú", nav: "Navegación principal" },
+  en: { work: "Work", approach: "Approach", process: "Process", experience: "Experience", contact: "Let’s talk", open: "Open menu", close: "Close menu", nav: "Main navigation" },
 } as const;
 
 export function Header({ locale }: { locale: Locale }) {
   const pathname = usePathname() || `/${locale}`;
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
   const c = copy[locale];
+
+  // Cierra el menú al navegar a otra página.
+  useEffect(() => { setOpen(false); }, [pathname]);
+
+  // Menú abierto: bloquea el scroll de fondo, cierra con Escape y si se agranda la pantalla.
+  useEffect(() => {
+    if (!open) return;
+    const lenis = (window as unknown as { __lenis?: { stop(): void; start(): void } }).__lenis;
+    lenis?.stop();
+    document.documentElement.classList.add("menu-open");
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const mq = window.matchMedia("(min-width: 761px)");
+    const onMq = () => { if (mq.matches) setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    mq.addEventListener("change", onMq);
+    return () => {
+      lenis?.start();
+      document.documentElement.classList.remove("menu-open");
+      window.removeEventListener("keydown", onKey);
+      mq.removeEventListener("change", onMq);
+    };
+  }, [open]);
 
   useEffect(() => {
     let last = window.scrollY;
@@ -33,23 +56,69 @@ export function Header({ locale }: { locale: Locale }) {
   }, []);
 
   const home = href("/", locale);
+  // En la home, el menú se cierra y scrollea al ancla (Lenis está pausado mientras está abierto).
+  const goTo = (id: string) => (e: MouseEvent) => {
+    setOpen(false);
+    const target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    history.replaceState(null, "", `#${id}`);
+    requestAnimationFrame(() => {
+      const lenis = (window as unknown as { __lenis?: { scrollTo(t: HTMLElement, o: object): void } }).__lenis;
+      if (lenis) lenis.scrollTo(target, { offset: -80, force: true });
+      else target.scrollIntoView({ behavior: "smooth" });
+    });
+  };
+  const links = [
+    { id: "work", label: c.work },
+    { id: "approach", label: c.approach },
+    { id: "process", label: c.process },
+    { id: "experience", label: c.experience },
+  ];
   return (
-    <header className={`site-header ${hidden ? "is-hidden" : ""} ${scrolled ? "is-scrolled" : ""}`}>
+    <>
+    <header className={`site-header ${hidden && !open ? "is-hidden" : ""} ${scrolled || open ? "is-scrolled" : ""}`}>
       <Link href={home} className="brand" aria-label={site.name}>
         <span className="brand-mark">JK</span>
         <span className="brand-name">Julián Kondratavicius</span>
       </Link>
-      <nav className="site-nav" aria-label={locale === "es" ? "Navegación principal" : "Main navigation"}>
-        <Link href={`${home}#work`}>{c.work}</Link>
-        <Link href={`${home}#approach`}>{c.approach}</Link>
-        <Link href={`${home}#process`}>{c.process}</Link>
-        <Link href={`${home}#experience`}>{c.experience}</Link>
+      <nav className="site-nav" aria-label={c.nav}>
+        {links.map((l) => <Link key={l.id} href={`${home}#${l.id}`}>{l.label}</Link>)}
         <ThemeToggle locale={locale} />
         <Link className="lang" href={switchLocale(pathname, locale === "es" ? "en" : "es")} hrefLang={locale === "es" ? "en" : "es"}>
           <span className={locale === "es" ? "on" : ""}>ES</span>/<span className={locale === "en" ? "on" : ""}>EN</span>
         </Link>
+        <button
+          type="button"
+          className={`menu-toggle ${open ? "is-open" : ""}`}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          aria-label={open ? c.close : c.open}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+        </button>
       </nav>
     </header>
+    <div id="mobile-menu" className={`mobile-menu ${open ? "is-open" : ""}`} aria-hidden={!open} inert={!open}>
+      <nav aria-label={c.nav}>
+        <ol>
+          {links.map((l, i) => (
+            <li key={l.id} style={{ ["--d" as string]: `${0.06 + i * 0.05}s` }}>
+              <Link href={`${home}#${l.id}`} onClick={goTo(l.id)}>
+                <span>{String(i + 1).padStart(2, "0")}</span>{l.label}
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </nav>
+      <div className="mobile-menu-foot">
+        <a className="mobile-menu-cta" href={`mailto:${site.email}`}>{c.contact}<span aria-hidden="true">↗</span></a>
+        <a className="link-underline" href={site.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+      </div>
+    </div>
+    </>
   );
 }
 
