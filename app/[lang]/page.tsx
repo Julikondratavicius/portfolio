@@ -10,8 +10,7 @@ import { CopyEmail, Counter, Magnetic, ScrollText } from "@/components/motion";
 
 const words = {
   es: {
-    eyebrow: "Product & Experience Designer",
-    lines: ["Hago que", "lo complejo", "sea claro."],
+    lines: ["Product &", "Experience", "Designer"],
     intro: "Diseño productos y experiencias end-to-end que conectan las necesidades de las personas, los objetivos del negocio y la operación que hay detrás. +5 años en healthtech, fintech y movilidad.",
     scroll: "Scrolleá",
     workLabel: "Trabajo seleccionado",
@@ -39,8 +38,7 @@ const words = {
     write: "Escribime",
   },
   en: {
-    eyebrow: "Product & Experience Designer",
-    lines: ["I make", "complex things", "feel clear."],
+    lines: ["Product &", "Experience", "Designer"],
     intro: "I design end-to-end products and experiences that connect people’s needs, business goals and the operation behind them. 5+ years across healthtech, fintech and mobility.",
     scroll: "Scroll",
     workLabel: "Selected work",
@@ -104,9 +102,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* HERO */}
       <section className="hero">
-        <div className="hero-top">
-          <p className="label" data-reveal>{c.eyebrow}</p>
-        </div>
         <h1 className="hero-title">
           {c.lines.map((line, i) => (
             <span className="line" key={line}><span style={{ ["--d" as string]: `${0.08 + i * 0.1}s` }}>{line}</span></span>

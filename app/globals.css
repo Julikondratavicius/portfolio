@@ -121,7 +121,6 @@ html.at-end .floating-cta-wrap { right: calc(var(--gutter) + 72px); }
 
 /* ───────────────────────── Home: hero ───────────────────────── */
 .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; padding: 110px var(--gutter) 36px; }
-.hero-top { display: flex; justify-content: space-between; gap: 16px; }
 .hero-title { margin: 3vh 0 0; font-size: clamp(56px, min(10.5vw, 18svh), 200px); font-weight: 500; line-height: .92; letter-spacing: -.055em; }
 .hero-title .line:nth-child(3) > span { color: var(--muted); }
 .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-top: 3vh; }
@@ -382,7 +381,6 @@ html.at-end .floating-cta-wrap { right: calc(var(--gutter) + 72px); }
 @media (max-width: 760px) {
   .brand-name, .site-nav a:not(.lang) { display: none; }
   .hero { padding-top: 96px; }
-  .hero-top { flex-direction: column; gap: 6px; }
   .hero-title .line:nth-child(2) { padding-left: 0; }
   .hero-bottom { margin-top: 40px; }
   .scroll-cue { display: none; }
@@ -578,3 +576,6 @@ html.menu-open .floating-cta-wrap { opacity: 0; pointer-events: none; }
 @media (max-width: 760px) {
   html.at-end .floating-cta-wrap { opacity: 0; pointer-events: none; }
 }
+/* Título del hero: llena el ancho en tablet y mobile. */
+@media (max-width: 1024px) { .hero-title { font-size: min(15.5vw, 19svh); } }
+@media (max-width: 760px) { .hero-title { font-size: 19.5vw; } }
